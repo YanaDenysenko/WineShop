@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+    id: createTableBasketDetails
+    author: yana
+    changes:
+      - createTable:
+          catalogName: wine_store
+          schemaName: wine_store
+          tableName: basket_details
+          columns:
+            - column:
+                name: id
+                type: long
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  primaryKeyName: basket_details_pk
+                  nullable: false
+            - column:
+                name: product_id
+                type: long
+                constraints:
+                  foreignKeyName: basket_details_product_fk
+                  references: product(id)
+                  nullable: false
+            - column:
+                name: basket_id
+                type: long
+                constraints:
+                  foreignKeyName: basket_details_basket_fk
+                  references: basket(id)
+                  nullable: false
+            - column:
+                name: quantity
+                type: int
+                defaultValue: 1
+                constraints:
+                  nullable: false
+            - column:
+                name: create_at
+                type: timestamp
+                defaultValue: now()
+                constraints:
+                  nullable: false
+            - column:
+                name: modified
+                type: timestamp
