@@ -9,16 +9,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "basket")
-public class Basket{
+@Table(name = "product_category")
+public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "create_at", nullable = false)
     private Timestamp createAt;
@@ -26,9 +25,9 @@ public class Basket{
     @Column(name = "modified")
     private Timestamp modified;
 
-    @OneToOne(mappedBy = "basket")
-    private Order order;
+    @Column(name = "is_deleted", nullable = false)
+    private Timestamp isDeleted;
 
-    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
-    List<BasketDetails> basketDetails = new ArrayList<>();
+    @OneToMany(mappedBy = "category")
+    List<Product> products = new ArrayList<>();
 }
