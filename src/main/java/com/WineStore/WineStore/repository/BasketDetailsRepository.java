@@ -1,4 +1,12 @@
 package com.WineStore.WineStore.repository;
 
-public interface BasketDetailsRepository {
+import com.WineStore.WineStore.model.BasketDetails;
+import com.WineStore.WineStore.model.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.Set;
+
+@Repository
+public interface BasketDetailsRepository extends JpaRepository<BasketDetails, Long> {
+    Set<BasketDetails> getAllByProduct(Product product);
 }
