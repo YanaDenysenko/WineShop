@@ -24,8 +24,9 @@ public class Order {
     @Column(name = "shipped_date", nullable = false)
     private Timestamp shippedDate;
 
-    @Column(name = "status", nullable = false)
-    private String status;
+    @ManyToOne()
+    @JoinColumn(name = "status_id", nullable = false)
+    private OrderStatus orderStatus;
 
     @Column(name = "create_at", nullable = false)
     private Timestamp createAt;

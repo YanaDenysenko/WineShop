@@ -5,7 +5,7 @@ import com.WineStore.WineStore.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper implements Mapper<ProductDto, Product>{
+public class ProductMapper implements Mapper<Product, ProductDto>{
 
     @Override
     public ProductDto mapToDto(Product product) {
@@ -13,6 +13,8 @@ public class ProductMapper implements Mapper<ProductDto, Product>{
                 .name(product.getName())
                 .category(product.getCategory())
                 .vendorCode(product.getVendorCode())
+                .name(product.getName())
+                .category(product.getCategory())
                 .basketDetails(product.getBasketDetails())
                 .build();
     }

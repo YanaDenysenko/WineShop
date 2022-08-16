@@ -35,9 +35,11 @@ databaseChangeLog:
                     constraints:
                       nullable: false
                 - column:
-                    name: status
-                    type: varchar(50)
+                    name: status_id
+                    type: serial
                     constraints:
+                      foreignKeyName: order_order_status_fk
+                      references: wine_store.order_status(id)
                       nullable: false
                 - column:
                     name: create_at

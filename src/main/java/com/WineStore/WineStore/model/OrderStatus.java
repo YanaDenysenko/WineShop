@@ -7,21 +7,17 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
-@Table(name = "basket")
-public class Basket{
+@Data
+@Table(name = "order_status")
+public class OrderStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
-
-    @Column(name = "status", nullable = false)
-    private String status;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "create_at", nullable = false)
     private Timestamp createAt;
@@ -29,9 +25,9 @@ public class Basket{
     @Column(name = "modified")
     private Timestamp modified;
 
-    @OneToOne(mappedBy = "basket")
-    private Order order;
+    @Column(name = "is_deleted", nullable = false)
+    private Timestamp isDeleted;
 
-    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
-    List<BasketDetails> basketDetails = new ArrayList<>();
+    @OneToMany(mappedBy = "status")
+    List<Order> orders = new ArrayList<>();
 }

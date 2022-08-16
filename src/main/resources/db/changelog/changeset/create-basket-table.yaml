@@ -24,6 +24,11 @@ databaseChangeLog:
                     references: wine_store.customer(id)
                     nullable: false
               - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
                   name: create_at
                   type: timestamp
                   defaultValue: now()
