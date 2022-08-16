@@ -1,70 +1,70 @@
 databaseChangeLog:
   - changeSet:
-    id: createTableWine
-    author: yana
-    changes:
-      - createTable:
-          catalogName: wine_store
-          schemaName: wine_store
-          tableName: wine
-          columns:
-            - column:
-                name: id
-                type: long
-                autoIncrement: true
-                constraints:
-                  primaryKey: true
-                  primaryKeyName: wine_pk
-                  nullable: false
-            - column:
-                name: product_id
-                type: long
-                constraints:
-                  foreignKeyName: wine_product_fk
-                  references: product(id)
-                  nullable: false
-            - column:
-                name: color
-                type: varchar(50)
-                constraints:
-                  nullable: false
-            - column:
-                name: sweetness
-                type: varchar(50)
-                constraints:
-                  nullable: false
-            - column:
-                name: region
-                type: varchar(50)
-                constraints:
-                  nullable: false
-            - column:
-                name: grape_sort
-                type: varchar(50)
-                constraints:
-                  nullable: false
-            - column:
-                name: classification
-                type: varchar(50)
-                constraints:
-                  nullable: false
-            - column:
-                name: capacity
-                type: double
-                constraints:
-                  nullable: false
-            - column:
-                name: create_at
-                type: timestamp
-                defaultValue: now()
-                constraints:
-                  nullable: false
-            - column:
-                name: modified
-                type: timestamp
-            - column:
-                name: is_deleted
-                type: boolean
-                defaultValue: false
-                constraints:
-                  nullable: false
+      id: createTableWine
+      author: yana
+      changes:
+        - createTable:
+            catalogName: wine_store
+            schemaName: wine_store
+            tableName: wine
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: wine_pk
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: serial
+                  constraints:
+                    foreignKeyName: wine_product_fk
+                    references: wine_store.product(id)
+                    nullable: false
+              - column:
+                  name: color
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sweetness
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: region
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: grape_sort
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: classification
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: capacity
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_at
+                  type: timestamp
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified
+                  type: timestamp
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
