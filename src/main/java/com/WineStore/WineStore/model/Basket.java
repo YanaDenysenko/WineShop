@@ -20,9 +20,6 @@ public class Basket{
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(name = "status", nullable = false)
-    private String status;
-
     @Column(name = "create_at", nullable = false)
     private Timestamp createAt;
 
