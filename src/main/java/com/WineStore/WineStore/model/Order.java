@@ -26,7 +26,7 @@ public class Order {
 
     @ManyToOne()
     @JoinColumn(name = "status_id", nullable = false)
-    private OrderStatus orderStatus;
+    private OrderStatus status;
 
     @Column(name = "create_at", nullable = false)
     private Timestamp createAt;

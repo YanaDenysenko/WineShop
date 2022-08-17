@@ -16,6 +16,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Set<Product> getOrderByCustomer(CustomerDto customerDto) {
-        return orderRepository.getOrderByCustomer(customerMapper.mapToModel(customerDto));
+        return null;
     }
 }

@@ -12,9 +12,8 @@ public class BasketServiceImpl implements BasketService {
     BasketRepository basketRepository;
     CustomerMapper customerMapper;
 
-
     @Override
     public Basket getCurrentBasketByCustomer(CustomerDto customerDto) {
-        return basketRepository.getCurrentBasketByCustomer(customerMapper.mapToModel(customerDto));
+        return null;
     }
 }

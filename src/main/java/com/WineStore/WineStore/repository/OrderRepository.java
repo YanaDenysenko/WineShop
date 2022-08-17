@@ -13,9 +13,9 @@ import java.util.Set;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query(value = "select * from wine_stor.order " +
-            "where basket_id in (select id from wine_store.basket where customer_id = :customer_id)",
+    @Query(value = "select * from wine_store.order " +
+            "where basket_id in (select id from wine_store.basket " +
+            "where customer_id = :customer_id)",
             nativeQuery = true)
-//    Set<Product> getOrderByCustomer (@Param("customer_id") long customer_id);
-    Set<Product> getOrderByCustomer (Customer customer);
+    Set<Product> getOrderByCustomer (@Param("customer_id") long customer_id);
 }
