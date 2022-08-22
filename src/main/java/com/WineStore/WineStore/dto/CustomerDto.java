@@ -11,6 +11,6 @@ public class CustomerDto {
     private String password;
     private String name;
     private Timestamp dateOfBirth;
-    private String phone_number;
+    private String phoneNumber;
     private String address;
 }

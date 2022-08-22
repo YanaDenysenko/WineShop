@@ -1,7 +1,7 @@
 package com.WineStore.WineStore.service.impl;
 
 import com.WineStore.WineStore.dto.ProductCategoryDto;
-import com.WineStore.WineStore.mapper.ProductCategoryMapper;
+import com.WineStore.WineStore.mapper.impl.ProductCategoryMapper;
 import com.WineStore.WineStore.model.Product;
 import com.WineStore.WineStore.repository.ProductRepository;
 import com.WineStore.WineStore.service.ProductService;

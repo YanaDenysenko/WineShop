@@ -1,11 +1,13 @@
-package com.WineStore.WineStore.mapper;
+package com.WineStore.WineStore.mapper.impl;
 
 import com.WineStore.WineStore.dto.ProductDto;
+import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper implements Mapper<Product, ProductDto>{
+public class ProductMapper implements Mapper<Product, ProductDto> {
+
     @Override
     public ProductDto mapToDto(Product product) {
         return ProductDto.builder()

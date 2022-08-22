@@ -6,6 +6,8 @@ import java.util.Set;
 
 public interface ProductService {
     Set<Product> getProductById(long id);
+
     Set<Product> getProductByCategory(ProductCategoryDto categoryDto);
+
     Set<Product> getProductByManufacturer (String manufacturer);
 }

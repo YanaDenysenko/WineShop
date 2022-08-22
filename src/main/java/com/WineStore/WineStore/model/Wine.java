@@ -27,7 +27,7 @@ public class Wine{
     private String region;
 
     @Column(name = "grape_sort", nullable = false)
-    private String grape_sort;
+    private String grapeSort;
 
     @Column(name = "classification", nullable = false)
     private String classification;

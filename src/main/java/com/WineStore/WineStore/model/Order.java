@@ -23,7 +23,7 @@ public class Order {
     @Column(name = "shipped_date", nullable = false)
     private Timestamp shippedDate;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
     private OrderStatus status;
 

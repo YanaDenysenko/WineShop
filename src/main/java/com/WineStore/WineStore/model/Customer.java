@@ -28,7 +28,7 @@ public class Customer {
     private Timestamp dateOfBirth;
 
     @Column(name = "phone_number", nullable = false)
-    private String phone_number;
+    private String phoneNumber;
 
     @Column(name = "address", nullable = false)
     private String address;

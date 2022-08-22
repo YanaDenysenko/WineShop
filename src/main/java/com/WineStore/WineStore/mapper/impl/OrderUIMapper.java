@@ -1,13 +1,14 @@
-package com.WineStore.WineStore.mapper;
+package com.WineStore.WineStore.mapper.impl;
 
 import com.WineStore.WineStore.dto.OrderUIDto;
+import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.Order;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class OrderUIMapper implements Mapper<Order, OrderUIDto>{
+public class OrderUIMapper implements Mapper<Order, OrderUIDto> {
     private final BasketMapper basketMapper;
     private final OrderStatusMapper orderStatusMapper;
 
