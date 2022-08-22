@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "product_category")
+@Table(name = "product_category", schema = "wine_store")
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class ProductCategory {
     private Timestamp modified;
 
     @Column(name = "is_deleted", nullable = false)
-    private Timestamp isDeleted;
+    private boolean isDeleted;
 
     @OneToMany(mappedBy = "category")
     List<Product> products = new ArrayList<>();

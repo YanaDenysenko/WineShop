@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "product")
+@Table(name = "product", schema = "wine_store")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Product {
     private Timestamp modified;
 
     @Column(name = "is_deleted", nullable = false)
-    private Timestamp isDeleted;
+    private boolean isDeleted;
 
     @OneToOne(mappedBy = "product")
     private Wine wine;

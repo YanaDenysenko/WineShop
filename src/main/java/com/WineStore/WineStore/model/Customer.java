@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "customer")
+@Table(name = "customer", schema = "wine_store")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +25,8 @@ public class Customer {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "date_of_birth")
-    private Timestamp dateOfBirth;
+//    @Column(name = "date_of_birth")
+//    private Timestamp dateOfBirth;
 
     @Column(name = "phone_number", nullable = false)
     private String phone_number;
@@ -41,7 +41,7 @@ public class Customer {
     private Timestamp modified;
 
     @Column(name = "is_deleted", nullable = false)
-    private Timestamp isDeleted;
+    private boolean isDeleted;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     List<Basket> baskets = new ArrayList<>();

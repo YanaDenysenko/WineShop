@@ -45,8 +45,8 @@ databaseChangeLog:
                     name: create_at
                     type: timestamp
                     defaultValue: now()
-                    constraints:
-                      nullable: false
+#                    constraints:
+#                      nullable: false
                 - column:
                     name: modified
                     type: timestamp

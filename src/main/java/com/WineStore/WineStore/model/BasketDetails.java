@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "basket_details")
+@Table(name = "basket_details", schema = "wine_store")
 public class BasketDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class BasketDetails {
 
     @ManyToOne
     @JoinColumn(name = "basket_id", nullable = false)
-    private Basket basket;
+    private Basket basket1;
 
     @Column(name = "quantity", nullable = false)
     private int quantity;

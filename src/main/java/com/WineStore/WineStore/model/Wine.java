@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "wine")
+@Table(name = "wine", schema = "wine_store")
 public class Wine{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,5 +43,5 @@ public class Wine{
     private Timestamp modified;
 
     @Column(name = "is_deleted", nullable = false)
-    private Timestamp isDeleted;
+    private boolean isDeleted;
 }

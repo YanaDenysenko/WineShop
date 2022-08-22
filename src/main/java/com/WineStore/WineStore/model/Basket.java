@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "basket")
+@Table(name = "basket", schema = "wine_store")
 public class Basket{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,9 @@ public class Basket{
     @Column(name = "modified")
     private Timestamp modified;
 
-    @OneToOne(mappedBy = "basket")
+    @OneToOne(mappedBy = "basket2")
     private Order order;
 
-    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "basket1", cascade = CascadeType.ALL)
     List<BasketDetails> basketDetails = new ArrayList<>();
 }

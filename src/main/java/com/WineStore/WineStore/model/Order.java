@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "order", schema = "wine_store")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "basket_id", referencedColumnName = "id", nullable = false)
-    private Basket basket;
+    private Basket basket2;
 
     @Column(name = "order_date", nullable = false)
     private Timestamp orderDate;
@@ -28,7 +28,7 @@ public class Order {
     @JoinColumn(name = "status_id", nullable = false)
     private OrderStatus status;
 
-    @Column(name = "create_at", nullable = false)
+    @Column(name = "create_at")
     private Timestamp createAt;
 
     @Column(name = "modified")
