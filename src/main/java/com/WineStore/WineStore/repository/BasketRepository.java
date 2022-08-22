@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Long> {
-
     @Query(value = "select * from wine_store.basket " +
             "where customer_id = :customer_id " +
             "and id not in (select basket_id from wine_store.order)",

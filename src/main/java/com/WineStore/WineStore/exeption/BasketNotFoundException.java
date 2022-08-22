@@ -1,7 +1,7 @@
 package com.WineStore.WineStore.exeption;
 
 public class BasketNotFoundException extends RuntimeException{
-    public BasketNotFoundException(){
-        super("Basket not found!");
+    public BasketNotFoundException(long id){
+        super("Basket with id \"" + id + "\"not found!");
     }
 }

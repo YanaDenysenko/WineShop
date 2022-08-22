@@ -25,9 +25,9 @@ public class Basket{
     @Column(name = "modified")
     private Timestamp modified;
 
-    @OneToOne(mappedBy = "basket2")
+    @OneToOne(mappedBy = "basket")
     private Order order;
 
-    @OneToMany(mappedBy = "basket1", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
     List<BasketDetails> basketDetails = new ArrayList<>();
 }

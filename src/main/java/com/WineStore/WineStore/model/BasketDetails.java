@@ -1,7 +1,6 @@
 package com.WineStore.WineStore.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -20,7 +19,7 @@ public class BasketDetails {
 
     @ManyToOne
     @JoinColumn(name = "basket_id", nullable = false)
-    private Basket basket1;
+    private Basket basket;
 
     @Column(name = "quantity", nullable = false)
     private int quantity;

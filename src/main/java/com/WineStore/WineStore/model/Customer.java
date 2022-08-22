@@ -1,7 +1,6 @@
 package com.WineStore.WineStore.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ public class Customer {
     @Column(name = "name", nullable = false)
     private String name;
 
-//    @Column(name = "date_of_birth")
-//    private Timestamp dateOfBirth;
+    @Column(name = "date_of_birth")
+    private Timestamp dateOfBirth;
 
     @Column(name = "phone_number", nullable = false)
     private String phone_number;
@@ -45,5 +44,4 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     List<Basket> baskets = new ArrayList<>();
-
 }

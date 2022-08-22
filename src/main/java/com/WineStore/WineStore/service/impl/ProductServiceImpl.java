@@ -5,14 +5,15 @@ import com.WineStore.WineStore.mapper.ProductCategoryMapper;
 import com.WineStore.WineStore.model.Product;
 import com.WineStore.WineStore.repository.ProductRepository;
 import com.WineStore.WineStore.service.ProductService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Set;
 
+@AllArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
-    ProductRepository productRepository;
-    ProductCategoryMapper productCategoryMapper;
+    private final ProductRepository productRepository;
+    private final ProductCategoryMapper productCategoryMapper;
 
     @Override
     public Set<Product> getProductById(long id) {

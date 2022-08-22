@@ -5,15 +5,16 @@ import com.WineStore.WineStore.mapper.ProductCategoryMapper;
 import com.WineStore.WineStore.model.ProductCategory;
 import com.WineStore.WineStore.repository.ProductCategoryRepository;
 import com.WineStore.WineStore.service.ProductCategoryService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
-
-    ProductCategoryRepository productCategoryRepository;
-    ProductCategoryMapper productCategoryMapper;
+    private final ProductCategoryRepository productCategoryRepository;
+    private final ProductCategoryMapper productCategoryMapper;
 
     @Override
     public ProductCategory save(ProductCategoryDto productCategoryDto) {

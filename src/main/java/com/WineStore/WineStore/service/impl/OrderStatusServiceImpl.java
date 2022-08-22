@@ -1,5 +1,6 @@
 package com.WineStore.WineStore.service.impl;
 
+import com.WineStore.WineStore.exeption.OrderStatusNotFoundException;
 import com.WineStore.WineStore.model.OrderStatus;
 import com.WineStore.WineStore.repository.OrderStatusRepository;
 import com.WineStore.WineStore.service.OrderStatusService;
@@ -13,6 +14,7 @@ public class OrderStatusServiceImpl implements OrderStatusService {
 
     @Override
     public OrderStatus getOrderStatusByName(String name) {
-        return orderStatusRepository.getOrderStatusByName(name).get();
+        return orderStatusRepository.getOrderStatusByName(name)
+                .orElseThrow(() -> new OrderStatusNotFoundException(name));
     }
 }

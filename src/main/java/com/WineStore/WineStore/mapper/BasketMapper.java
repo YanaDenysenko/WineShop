@@ -8,10 +8,8 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class BasketMapper implements Mapper<Basket, BasketDto> {
-
     @Override
     public BasketDto mapToDto(Basket basket) {
-
         return null;
     }
 

@@ -2,8 +2,6 @@ package com.WineStore.WineStore.service;
 
 import com.WineStore.WineStore.dto.ProductDto;
 import com.WineStore.WineStore.model.BasketDetails;
-import com.WineStore.WineStore.model.ProductCategory;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

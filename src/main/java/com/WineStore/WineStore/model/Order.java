@@ -1,7 +1,6 @@
 package com.WineStore.WineStore.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -16,7 +15,7 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "basket_id", referencedColumnName = "id", nullable = false)
-    private Basket basket2;
+    private Basket basket;
 
     @Column(name = "order_date", nullable = false)
     private Timestamp orderDate;

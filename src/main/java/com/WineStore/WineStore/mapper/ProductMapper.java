@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper implements Mapper<Product, ProductDto>{
-
     @Override
     public ProductDto mapToDto(Product product) {
         return ProductDto.builder()
@@ -15,7 +14,6 @@ public class ProductMapper implements Mapper<Product, ProductDto>{
                 .vendorCode(product.getVendorCode())
                 .name(product.getName())
                 .category(product.getCategory())
-                .basketDetails(product.getBasketDetails())
                 .build();
     }
 

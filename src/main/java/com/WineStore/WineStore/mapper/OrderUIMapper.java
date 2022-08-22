@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class OrderUIMapper implements Mapper<Order, OrderUIDto>{
-    BasketMapper basketMapper;
-    OrderStatusMapper orderStatusMapper;
+    private final BasketMapper basketMapper;
+    private final OrderStatusMapper orderStatusMapper;
 
     @Override
     public OrderUIDto mapToDto(Order order) {
         return OrderUIDto.builder()
                 .id(order.getId())
-                .basket(basketMapper.mapToDto(order.getBasket2()))
+                .basket(basketMapper.mapToDto(order.getBasket()))
                 .orderDate(order.getOrderDate())
                 .shippedDate(order.getShippedDate())
                 .status(orderStatusMapper.mapToDto(order.getStatus()))
