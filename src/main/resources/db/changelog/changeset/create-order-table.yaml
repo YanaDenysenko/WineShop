@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+        id: createTableOrder
+        author: yana
+        changes:
+          - createTable:
+              catalogName: wine_store
+              schemaName: wine_store
+              tableName: order
+              columns:
+                - column:
+                    name: id
+                    type: serial
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      primaryKeyName: order_pk
+                      nullable: false
+                - column:
+                    name: basket_id
+                    type: serial
+                    constraints:
+                      foreignKeyName: order_basket_fk
+                      references: wine_store.basket(id)
+                      nullable: false
+                - column:
+                    name: order_date
+                    type: timestamp without time zone
+                    defaultValue: now()
+                    constraints:
+                      nullable: false
+                - column:
+                    name: shipped_date
+                    type: timestamp without time zone
+                    constraints:
+                      nullable: false
+                - column:
+                    name: status_id
+                    type: serial
+                    constraints:
+                      foreignKeyName: order_order_status_fk
+                      references: wine_store.order_status(id)
+                      nullable: false
+                - column:
+                    name: create_at
+                    type: timestamp
+                    defaultValue: now()
+#                    constraints:
+#                      nullable: false
+                - column:
+                    name: modified
+                    type: timestamp

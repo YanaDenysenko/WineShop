@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: createTableBasket
+      author: yana
+      changes:
+        - createTable:
+            catalogName: wine_store
+            schemaName: wine_store
+            tableName: basket
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: basket_pk
+                    nullable: false
+              - column:
+                  name: customer_id
+                  type: serial
+                  constraints:
+                    foreignKeyName: basket_customer_fk
+                    references: wine_store.customer(id)
+                    nullable: false
+              - column:
+                  name: create_at
+                  type: timestamp
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified
+                  type: timestamp

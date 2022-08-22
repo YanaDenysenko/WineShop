@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: createTableCustomer
+      author: yana
+      changes:
+        - createTable:
+            catalogName: wine_store
+            schemaName: wine_store
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: customer_pk
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    uniqueConstraintName: customer_login_uq
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_of_birth
+                  type: timestamp without time zone
+              - column:
+                  name: phone_number
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_at
+                  type: timestamp
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified
+                  type: timestamp
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
