@@ -15,6 +15,8 @@ public class OrderStatusCreateMapper implements Mapper<OrderStatus, OrderStatusC
 
     @Override
     public OrderStatus mapToModel(OrderStatusCreateDto orderStatusCreateDto) {
-        return null;
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setName(orderStatusCreateDto.getName());
+        return orderStatus;
     }
 }

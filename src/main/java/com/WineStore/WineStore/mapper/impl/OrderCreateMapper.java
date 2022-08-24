@@ -22,7 +22,7 @@ public class OrderCreateMapper implements Mapper<Order, OrderCreateDto> {
     @Override
     public Order mapToModel(OrderCreateDto orderCreateDto) {
         Order order = new Order();
-        order.setBasket(basketService.getBasketById(orderCreateDto.getBasketId()));
+        order.setBasket(basketService.findById(orderCreateDto.getBasketId()));
         order.setOrderDate(orderCreateDto.getOrderDate());
         order.setShippedDate(orderCreateDto.getShippedDate());
         order.setStatus(orderStatusService.getOrderStatusByName(

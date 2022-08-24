@@ -16,6 +16,8 @@ public class ProductCategoryCreateMapper implements
 
     @Override
     public ProductCategory mapToModel(ProductCategoryCreateDto productCategoryCreateDto) {
-        return null;
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setName(productCategoryCreateDto.getName());
+        return productCategory;
     }
 }

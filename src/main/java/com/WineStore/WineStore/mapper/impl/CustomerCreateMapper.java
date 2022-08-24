@@ -15,6 +15,13 @@ public class CustomerCreateMapper implements Mapper<Customer, CustomerCreateDto>
 
     @Override
     public Customer mapToModel(CustomerCreateDto customerCreateDto) {
-        return null;
+        Customer customer = new Customer();
+        customer.setLogin(customerCreateDto.getLogin());
+        customer.setPassword(customerCreateDto.getPassword());
+        customer.setName(customerCreateDto.getName());
+        customer.setDateOfBirth(customerCreateDto.getDateOfBirth());
+        customer.setPhoneNumber(customerCreateDto.getPhoneNumber());
+        customer.setAddress(customerCreateDto.getAddress());
+        return customer;
     }
 }
