@@ -1,4 +1,4 @@
-package com.WineStore.WineStore.dto;
+package com.WineStore.WineStore.dto.uiDto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class BasketDetailsUIDto {
     private long id;
-    private ProductDto product;
-    private BasketDto basket;
+    private ProductUIDto productUIDto;
+    private BasketUIDto basketUIDto;
     private int quantity;
 }

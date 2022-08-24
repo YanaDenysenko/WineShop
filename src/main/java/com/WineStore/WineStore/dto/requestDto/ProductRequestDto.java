@@ -1,15 +1,14 @@
-package com.WineStore.WineStore.dto;
+package com.WineStore.WineStore.dto.requestDto;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ProductUIDto {
-    private long id;
+public class ProductRequestDto {
     private long vendorCode;
     private String name;
-    private ProductCategoryDto category;
+    private ProductCategoryRequestDto productCategoryRequestDto;
     private double unitPrice;
     private String manufacturer;
     private int quantity;

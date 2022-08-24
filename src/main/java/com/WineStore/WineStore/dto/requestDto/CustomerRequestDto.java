@@ -1,4 +1,4 @@
-package com.WineStore.WineStore.dto;
+package com.WineStore.WineStore.dto.requestDto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 @Data
 @Builder
-public class CustomerCreateDto {
+public class CustomerRequestDto {
     private String login;
     private String password;
     private String name;

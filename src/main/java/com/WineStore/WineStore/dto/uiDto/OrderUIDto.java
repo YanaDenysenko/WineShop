@@ -1,4 +1,4 @@
-package com.WineStore.WineStore.dto;
+package com.WineStore.WineStore.dto.uiDto;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +8,8 @@ import java.sql.Timestamp;
 @Builder
 public class OrderUIDto {
     private long id;
-    private BasketDto basket;
+    private BasketUIDto basketUIDto;
     private Timestamp orderDate;
     private Timestamp shippedDate;
-    private OrderStatusDto status;
+    private OrderStatusUIDto orderStatusUIDto;
 }

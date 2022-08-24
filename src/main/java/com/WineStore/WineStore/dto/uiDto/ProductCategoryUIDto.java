@@ -1,4 +1,4 @@
-package com.WineStore.WineStore.dto;
+package com.WineStore.WineStore.dto.uiDto;
 
 import lombok.Builder;
 import lombok.Data;
