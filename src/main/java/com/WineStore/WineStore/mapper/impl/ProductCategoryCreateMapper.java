@@ -3,7 +3,9 @@ package com.WineStore.WineStore.mapper.impl;
 import com.WineStore.WineStore.dto.ProductCategoryCreateDto;
 import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.ProductCategory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductCategoryCreateMapper implements
         Mapper<ProductCategory, ProductCategoryCreateDto> {
 
