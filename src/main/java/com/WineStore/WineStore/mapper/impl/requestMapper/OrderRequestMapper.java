@@ -1,6 +1,6 @@
-package com.WineStore.WineStore.mapper.impl;
+package com.WineStore.WineStore.mapper.impl.requestMapper;
 
-import com.WineStore.WineStore.dto.OrderCreateDto;
+import com.WineStore.WineStore.dto.requestDto.OrderRequestDto;
 import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.Order;
 import com.WineStore.WineStore.service.BasketService;
@@ -10,23 +10,23 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class OrderCreateMapper implements Mapper<Order, OrderCreateDto> {
+public class OrderRequestMapper implements Mapper<Order, OrderRequestDto> {
     private final BasketService basketService;
     private final OrderStatusService orderStatusService;
 
     @Override
-    public OrderCreateDto mapToDto(Order order) {
+    public OrderRequestDto mapToDto(Order order) {
         return null;
     }
 
     @Override
-    public Order mapToModel(OrderCreateDto orderCreateDto) {
+    public Order mapToModel(OrderRequestDto orderRequestDto) {
         Order order = new Order();
-        order.setBasket(basketService.findById(orderCreateDto.getBasketId()));
-        order.setOrderDate(orderCreateDto.getOrderDate());
-        order.setShippedDate(orderCreateDto.getShippedDate());
+        order.setBasket(basketService.getById(orderRequestDto.getBasketId()));
+        order.setOrderDate(orderRequestDto.getOrderDate());
+        order.setShippedDate(orderRequestDto.getShippedDate());
         order.setStatus(orderStatusService.getOrderStatusByName(
-                orderCreateDto.getOrderStatusDto().getName()));
+                orderRequestDto.getOrderStatusRequestDto().getName()));
         return order;
     }
 }

@@ -1,6 +1,6 @@
-package com.WineStore.WineStore.mapper.impl;
+package com.WineStore.WineStore.mapper.impl.uiMapper;
 
-import com.WineStore.WineStore.dto.OrderStatusUIDto;
+import com.WineStore.WineStore.dto.uiDto.OrderStatusUIDto;
 import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.OrderStatus;
 import org.springframework.stereotype.Component;

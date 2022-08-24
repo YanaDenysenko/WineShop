@@ -1,6 +1,6 @@
-package com.WineStore.WineStore.mapper.impl;
+package com.WineStore.WineStore.mapper.impl.requestMapper;
 
-import com.WineStore.WineStore.dto.BasketCreateDto;
+import com.WineStore.WineStore.dto.requestDto.BasketRequestDto;
 import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.Basket;
 import com.WineStore.WineStore.service.CustomerService;
@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class BasketCreateMapper implements Mapper<Basket, BasketCreateDto> {
+public class BasketRequestMapper implements Mapper<Basket, BasketRequestDto> {
     CustomerService customerService;
 
     @Override
-    public BasketCreateDto mapToDto(Basket basket) {
+    public BasketRequestDto mapToDto(Basket basket) {
         return null;
     }
 
     @Override
-    public Basket mapToModel(BasketCreateDto basketCreateDto) {
+    public Basket mapToModel(BasketRequestDto basketRequestDto) {
         Basket basket = new Basket();
-        basket.setCustomer(customerService.getCustomerById(basketCreateDto.getCustomerId()));
+        basket.setCustomer(customerService.getById(basketRequestDto.getCustomerId()));
         return basket;
     }
 }

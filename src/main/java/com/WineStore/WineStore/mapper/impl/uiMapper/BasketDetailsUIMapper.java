@@ -1,6 +1,6 @@
-package com.WineStore.WineStore.mapper.impl;
+package com.WineStore.WineStore.mapper.impl.uiMapper;
 
-import com.WineStore.WineStore.dto.BasketDetailsUIDto;
+import com.WineStore.WineStore.dto.uiDto.BasketDetailsUIDto;
 import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.BasketDetails;
 import lombok.AllArgsConstructor;
@@ -9,15 +9,15 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class BasketDetailsUIMapper implements Mapper<BasketDetails, BasketDetailsUIDto> {
-    ProductMapper productMapper;
-    BasketMapper basketMapper;
+    ProductUIMapper productUIMapper;
+    BasketUIMapper basketUIMapper;
 
     @Override
     public BasketDetailsUIDto mapToDto(BasketDetails basketDetails) {
         return BasketDetailsUIDto.builder()
                 .id(basketDetails.getId())
-                .product(productMapper.mapToDto(basketDetails.getProduct()))
-                .basket(basketMapper.mapToDto(basketDetails.getBasket()))
+                .productUIDto(productUIMapper.mapToDto(basketDetails.getProduct()))
+                .basketUIDto(basketUIMapper.mapToDto(basketDetails.getBasket()))
                 .quantity(basketDetails.getQuantity())
                 .build();
     }

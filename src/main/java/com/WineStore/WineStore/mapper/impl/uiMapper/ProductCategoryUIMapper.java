@@ -1,6 +1,6 @@
-package com.WineStore.WineStore.mapper.impl;
+package com.WineStore.WineStore.mapper.impl.uiMapper;
 
-import com.WineStore.WineStore.dto.ProductCategoryUIDto;
+import com.WineStore.WineStore.dto.uiDto.ProductCategoryUIDto;
 import com.WineStore.WineStore.mapper.Mapper;
 import com.WineStore.WineStore.model.ProductCategory;
 import org.springframework.stereotype.Component;
