@@ -47,4 +47,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         return productCategoryUIMapper.mapToDto(productCategoryRepository.save(
                 productCategoryCreateMapper.mapToModel(productCategoryCreateDto)));
     }
+
+    //TODO
+    @Override
+    public ProductCategory getByName(String name) {
+        return null;
+    }
 }

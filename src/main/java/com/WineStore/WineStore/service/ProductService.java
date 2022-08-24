@@ -7,7 +7,7 @@ import com.WineStore.WineStore.model.Product;
 import java.util.Set;
 
 public interface ProductService {
-    Set<Product> getProductById(long id);
+    Product findById(long id);
 
     Set<Product> getProductByCategory(ProductCategoryDto categoryDto);
 

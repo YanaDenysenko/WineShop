@@ -4,7 +4,6 @@ import com.WineStore.WineStore.dto.ProductCategoryDto;
 import com.WineStore.WineStore.dto.ProductCreateDto;
 import com.WineStore.WineStore.dto.ProductUIDto;
 import com.WineStore.WineStore.mapper.impl.ProductCreateMapper;
-import com.WineStore.WineStore.mapper.impl.ProductMapper;
 import com.WineStore.WineStore.mapper.impl.ProductUIMapper;
 import com.WineStore.WineStore.model.Product;
 import com.WineStore.WineStore.repository.ProductRepository;
@@ -17,13 +16,13 @@ import java.util.Set;
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
     private final ProductUIMapper productUIMapper;
     private final ProductCreateMapper productCreateMapper;
 
+    //TODO
     @Override
-    public Set<Product> getProductById(long id) {
-        return productRepository.getProductById(id);
+    public Product findById(long id) {
+        return productRepository.findById(id).get();
     }
 
     @Override

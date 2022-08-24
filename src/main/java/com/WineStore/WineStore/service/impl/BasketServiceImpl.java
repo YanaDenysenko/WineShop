@@ -25,8 +25,8 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public Basket getBasketById(Long id) {
-        return basketRepository.getFirstById(id)
+    public Basket findById(long id) {
+        return basketRepository.findById(id)
                 .orElseThrow(() -> new BasketNotFoundException(id));
     }
 

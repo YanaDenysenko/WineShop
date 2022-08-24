@@ -8,7 +8,7 @@ import com.WineStore.WineStore.model.Basket;
 public interface BasketService {
     Basket getCurrentBasketByCustomer(CustomerDto customerDto);
 
-    Basket getBasketById(Long id);
+    Basket findById(long id);
 
     BasketUIDto create(BasketCreateDto basketCreateDto);
 }

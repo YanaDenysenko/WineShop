@@ -17,4 +17,6 @@ public interface ProductCategoryService {
     List<ProductCategory> findAll();
 
     ProductCategoryUIDto create(ProductCategoryCreateDto productCategoryCreateDto);
+
+    ProductCategory getByName(String name);
 }
