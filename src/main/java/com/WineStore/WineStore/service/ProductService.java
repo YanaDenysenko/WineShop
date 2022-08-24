@@ -1,17 +1,15 @@
 package com.WineStore.WineStore.service;
 
-import com.WineStore.WineStore.dto.ProductCategoryDto;
-import com.WineStore.WineStore.dto.ProductCreateDto;
-import com.WineStore.WineStore.dto.ProductUIDto;
+import com.WineStore.WineStore.dto.requestDto.ProductRequestDto;
+import com.WineStore.WineStore.dto.uiDto.ProductUIDto;
 import com.WineStore.WineStore.model.Product;
-import java.util.Set;
+import java.util.List;
 
 public interface ProductService {
-    Product findById(long id);
 
-    Set<Product> getProductByCategory(ProductCategoryDto categoryDto);
+    ProductUIDto create(ProductRequestDto productRequestDto);
 
-    Set<Product> getProductByManufacturer (String manufacturer);
+    Product getById(long id);
 
-    ProductUIDto create(ProductCreateDto productCreateDto);
+    List<Product> getAll();
 }

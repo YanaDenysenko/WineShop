@@ -1,14 +1,21 @@
 package com.WineStore.WineStore.service;
 
-import com.WineStore.WineStore.dto.BasketCreateDto;
-import com.WineStore.WineStore.dto.BasketUIDto;
-import com.WineStore.WineStore.dto.CustomerDto;
+import com.WineStore.WineStore.dto.requestDto.BasketRequestDto;
+import com.WineStore.WineStore.dto.uiDto.BasketUIDto;
 import com.WineStore.WineStore.model.Basket;
+import java.util.List;
 
 public interface BasketService {
-    Basket getCurrentBasketByCustomer(CustomerDto customerDto);
 
-    Basket findById(long id);
+    BasketUIDto create(BasketRequestDto basketRequestDto);
 
-    BasketUIDto create(BasketCreateDto basketCreateDto);
+    Basket getById(long id);
+
+    List<Basket> getAll();
+
+    void deleteById(long id);
+
+    BasketUIDto updateById(BasketRequestDto basketRequestDto, long id);
+
+    Basket getCurrentBasketByCustomer(long customerId);
 }

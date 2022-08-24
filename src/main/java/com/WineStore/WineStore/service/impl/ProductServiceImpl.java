@@ -1,43 +1,38 @@
 package com.WineStore.WineStore.service.impl;
 
-import com.WineStore.WineStore.dto.ProductCategoryDto;
-import com.WineStore.WineStore.dto.ProductCreateDto;
-import com.WineStore.WineStore.dto.ProductUIDto;
-import com.WineStore.WineStore.mapper.impl.ProductCreateMapper;
-import com.WineStore.WineStore.mapper.impl.ProductUIMapper;
+import com.WineStore.WineStore.dto.requestDto.ProductRequestDto;
+import com.WineStore.WineStore.dto.uiDto.ProductUIDto;
+import com.WineStore.WineStore.exeption.ProductNotFoundException;
+import com.WineStore.WineStore.mapper.impl.requestMapper.ProductRequestMapper;
+import com.WineStore.WineStore.mapper.impl.uiMapper.ProductUIMapper;
 import com.WineStore.WineStore.model.Product;
 import com.WineStore.WineStore.repository.ProductRepository;
 import com.WineStore.WineStore.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductUIMapper productUIMapper;
-    private final ProductCreateMapper productCreateMapper;
-
-    //TODO
-    @Override
-    public Product findById(long id) {
-        return productRepository.findById(id).get();
-    }
+    private final ProductRequestMapper productRequestMapper;
 
     @Override
-    public Set<Product> getProductByCategory(ProductCategoryDto categoryDto) {
-        return null;
-    }
-
-    @Override
-    public Set<Product> getProductByManufacturer(String manufacturer) {
-        return productRepository.getProductByManufacturer(manufacturer);
-    }
-
-    @Override
-    public ProductUIDto create(ProductCreateDto productCreateDto) {
+    public ProductUIDto create(ProductRequestDto productRequestDto) {
         return productUIMapper.mapToDto(productRepository.save(
-                productCreateMapper.mapToModel(productCreateDto)));
+                productRequestMapper.mapToModel(productRequestDto)));
+    }
+
+    @Override
+    public Product getById(long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
 }

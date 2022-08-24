@@ -1,32 +1,38 @@
 package com.WineStore.WineStore.service.impl;
 
-import com.WineStore.WineStore.dto.CustomerDto;
-import com.WineStore.WineStore.dto.OrderCreateDto;
-import com.WineStore.WineStore.dto.OrderUIDto;
-import com.WineStore.WineStore.mapper.impl.OrderCreateMapper;
-import com.WineStore.WineStore.mapper.impl.OrderUIMapper;
-import com.WineStore.WineStore.model.Product;
+import com.WineStore.WineStore.dto.requestDto.OrderRequestDto;
+import com.WineStore.WineStore.dto.uiDto.OrderUIDto;
+import com.WineStore.WineStore.exeption.OrderNotFoundException;
+import com.WineStore.WineStore.mapper.impl.requestMapper.OrderRequestMapper;
+import com.WineStore.WineStore.mapper.impl.uiMapper.OrderUIMapper;
+import com.WineStore.WineStore.model.Order;
 import com.WineStore.WineStore.repository.OrderRepository;
 import com.WineStore.WineStore.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderUIMapper orderUIMapper;
-    private final OrderCreateMapper orderCreateMapper;
+    private final OrderRequestMapper orderRequestMapper;
 
     @Override
-    public Set<Product> getOrderByCustomer(CustomerDto customerDto) {
-        return null;
+    public OrderUIDto create(OrderRequestDto orderRequestDto) {
+        return orderUIMapper.mapToDto(orderRepository.save(
+                orderRequestMapper.mapToModel(orderRequestDto)));
     }
 
     @Override
-    public OrderUIDto create(OrderCreateDto orderCreateDto) {
-        return orderUIMapper.mapToDto(orderRepository.save(
-                orderCreateMapper.mapToModel(orderCreateDto)));
+    public Order getById(long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException(id));
+    }
+
+    @Override
+    public List<Order> getAll() {
+        return orderRepository.findAll();
     }
 }
