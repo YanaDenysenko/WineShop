@@ -8,7 +8,7 @@ import lombok.Data;
 public class ProductCreateDto {
     private long vendorCode;
     private String name;
-    private ProductCategoryDto categoryDto;
+    private ProductCategoryDto category;
     private double unitPrice;
     private String manufacturer;
     private int quantity;
