@@ -1,6 +1,8 @@
 package com.WineStore.WineStore.service.impl;
 
 import com.WineStore.WineStore.dto.ProductCategoryDto;
+import com.WineStore.WineStore.dto.ProductCreateDto;
+import com.WineStore.WineStore.dto.ProductUIDto;
 import com.WineStore.WineStore.mapper.impl.ProductCategoryMapper;
 import com.WineStore.WineStore.model.Product;
 import com.WineStore.WineStore.repository.ProductRepository;
@@ -28,5 +30,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Set<Product> getProductByManufacturer(String manufacturer) {
         return productRepository.getProductByManufacturer(manufacturer);
+    }
+
+    @Override
+    public ProductUIDto create(ProductCreateDto productCreateDto) {
+        return null;
     }
 }

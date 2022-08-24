@@ -1,5 +1,7 @@
 package com.WineStore.WineStore.service;
 
+import com.WineStore.WineStore.dto.BasketDetailsCreateDto;
+import com.WineStore.WineStore.dto.BasketDetailsUIDto;
 import com.WineStore.WineStore.dto.ProductDto;
 import com.WineStore.WineStore.model.BasketDetails;
 import java.util.List;
@@ -16,4 +18,6 @@ public interface BasketDetailsService {
     List<BasketDetails> findAll();
 
     Set<BasketDetails> getAllByProduct(ProductDto productDto);
+
+    BasketDetailsUIDto create(BasketDetailsCreateDto basketDetailsCreateDto);
 }

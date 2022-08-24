@@ -1,5 +1,7 @@
 package com.WineStore.WineStore.service.impl;
 
+import com.WineStore.WineStore.dto.BasketDetailsCreateDto;
+import com.WineStore.WineStore.dto.BasketDetailsUIDto;
 import com.WineStore.WineStore.dto.ProductDto;
 import com.WineStore.WineStore.mapper.impl.ProductMapper;
 import com.WineStore.WineStore.model.BasketDetails;
@@ -39,5 +41,10 @@ public class BasketDetailsServiceImpl implements BasketDetailsService {
     @Override
     public Set<BasketDetails> getAllByProduct(ProductDto productDto) {
         return basketDetailsRepository.getAllByProduct(productMapper.mapToModel(productDto));
+    }
+
+    @Override
+    public BasketDetailsUIDto create(BasketDetailsCreateDto basketDetailsCreateDto) {
+        return null;
     }
 }

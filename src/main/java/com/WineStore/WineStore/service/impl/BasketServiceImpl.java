@@ -1,5 +1,7 @@
 package com.WineStore.WineStore.service.impl;
 
+import com.WineStore.WineStore.dto.BasketCreateDto;
+import com.WineStore.WineStore.dto.BasketUIDto;
 import com.WineStore.WineStore.dto.CustomerDto;
 import com.WineStore.WineStore.exeption.BasketNotFoundException;
 import com.WineStore.WineStore.model.Basket;
@@ -22,5 +24,10 @@ public class BasketServiceImpl implements BasketService {
     public Basket getBasketById(Long id) {
         return basketRepository.getFirstById(id)
                 .orElseThrow(() -> new BasketNotFoundException(id));
+    }
+
+    @Override
+    public BasketUIDto create(BasketCreateDto basketCreateDto) {
+        return null;
     }
 }
