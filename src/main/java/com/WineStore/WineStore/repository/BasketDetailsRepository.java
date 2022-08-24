@@ -8,5 +8,6 @@ import java.util.Set;
 
 @Repository
 public interface BasketDetailsRepository extends JpaRepository<BasketDetails, Long> {
+
     Set<BasketDetails> getAllByProduct(Product product);
 }
