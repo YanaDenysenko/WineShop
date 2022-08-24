@@ -3,7 +3,9 @@ package com.WineStore.WineStore.service.impl;
 import com.WineStore.WineStore.dto.ProductCategoryDto;
 import com.WineStore.WineStore.dto.ProductCreateDto;
 import com.WineStore.WineStore.dto.ProductUIDto;
-import com.WineStore.WineStore.mapper.impl.ProductCategoryMapper;
+import com.WineStore.WineStore.mapper.impl.ProductCreateMapper;
+import com.WineStore.WineStore.mapper.impl.ProductMapper;
+import com.WineStore.WineStore.mapper.impl.ProductUIMapper;
 import com.WineStore.WineStore.model.Product;
 import com.WineStore.WineStore.repository.ProductRepository;
 import com.WineStore.WineStore.service.ProductService;
@@ -15,7 +17,9 @@ import java.util.Set;
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final ProductCategoryMapper productCategoryMapper;
+    private final ProductMapper productMapper;
+    private final ProductUIMapper productUIMapper;
+    private final ProductCreateMapper productCreateMapper;
 
     @Override
     public Set<Product> getProductById(long id) {
@@ -24,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Set<Product> getProductByCategory(ProductCategoryDto categoryDto) {
-        return productRepository.getProductByCategory(productCategoryMapper.mapToModel(categoryDto));
+        return null;
     }
 
     @Override
@@ -34,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductUIDto create(ProductCreateDto productCreateDto) {
-        return null;
+        return productUIMapper.mapToDto(productRepository.save(
+                productCreateMapper.mapToModel(productCreateDto)));
     }
 }

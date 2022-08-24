@@ -3,6 +3,8 @@ package com.WineStore.WineStore.service.impl;
 import com.WineStore.WineStore.dto.BasketDetailsCreateDto;
 import com.WineStore.WineStore.dto.BasketDetailsUIDto;
 import com.WineStore.WineStore.dto.ProductDto;
+import com.WineStore.WineStore.mapper.impl.BasketDetailsUIMapper;
+import com.WineStore.WineStore.mapper.impl.BasketDetailsCreateMapper;
 import com.WineStore.WineStore.mapper.impl.ProductMapper;
 import com.WineStore.WineStore.model.BasketDetails;
 import com.WineStore.WineStore.repository.BasketDetailsRepository;
@@ -18,6 +20,8 @@ import java.util.Set;
 public class BasketDetailsServiceImpl implements BasketDetailsService {
     private final BasketDetailsRepository basketDetailsRepository;
     private final ProductMapper productMapper;
+    private final BasketDetailsUIMapper basketDetailsUIMapper;
+    private final BasketDetailsCreateMapper basketDetailsCreateMapper;
 
     @Override
     public BasketDetails save(BasketDetails basketDetails) {
@@ -45,6 +49,7 @@ public class BasketDetailsServiceImpl implements BasketDetailsService {
 
     @Override
     public BasketDetailsUIDto create(BasketDetailsCreateDto basketDetailsCreateDto) {
-        return null;
+        return basketDetailsUIMapper.mapToDto(basketDetailsRepository.save(
+                basketDetailsCreateMapper.mapToModel(basketDetailsCreateDto)));
     }
 }

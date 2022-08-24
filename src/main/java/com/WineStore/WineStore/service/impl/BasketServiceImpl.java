@@ -4,6 +4,8 @@ import com.WineStore.WineStore.dto.BasketCreateDto;
 import com.WineStore.WineStore.dto.BasketUIDto;
 import com.WineStore.WineStore.dto.CustomerDto;
 import com.WineStore.WineStore.exeption.BasketNotFoundException;
+import com.WineStore.WineStore.mapper.impl.BasketCreateMapper;
+import com.WineStore.WineStore.mapper.impl.BasketUIMapper;
 import com.WineStore.WineStore.model.Basket;
 import com.WineStore.WineStore.repository.BasketRepository;
 import com.WineStore.WineStore.service.BasketService;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BasketServiceImpl implements BasketService {
     private final BasketRepository basketRepository;
+    private final BasketUIMapper basketUIMapper;
+    private final BasketCreateMapper basketCreateMapper;
 
     @Override
     public Basket getCurrentBasketByCustomer(CustomerDto customerDto) {
@@ -28,6 +32,7 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public BasketUIDto create(BasketCreateDto basketCreateDto) {
-        return null;
+        return basketUIMapper.mapToDto(basketRepository.save(
+                basketCreateMapper.mapToModel(basketCreateDto)));
     }
 }
