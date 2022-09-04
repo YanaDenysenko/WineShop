@@ -25,7 +25,7 @@ public class OrderRequestMapper implements Mapper<Order, OrderRequestDto> {
         order.setBasket(basketService.getById(orderRequestDto.getBasketId()));
         order.setOrderDate(orderRequestDto.getOrderDate());
         order.setShippedDate(orderRequestDto.getShippedDate());
-        order.setStatus(orderStatusService.getOrderStatusByName(
+        order.setStatus(orderStatusService.getByName(
                 orderRequestDto.getOrderStatusRequestDto().getName()));
         return order;
     }
