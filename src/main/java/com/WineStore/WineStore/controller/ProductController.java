@@ -32,4 +32,32 @@ public class ProductController {
                 .map(productUIMapper::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/getByManufacturer/{productManufacturer}")
+    List<ProductUIDto> getByManufacturer(@PathVariable String productManufacturer){
+        return productService.getByManufacturer(productManufacturer).stream()
+                .map(productUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/getAvailable")
+    List<ProductUIDto> getAvailableProduct(){
+        return productService.getAvailableProduct().stream()
+                .map(productUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/getByOrder/{orderId}")
+    List<ProductUIDto> getProductByOrder(@PathVariable String orderId){
+        return productService.getProductByOrder(Long.parseLong(orderId)).stream()
+                .map(productUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/getByCategory/{categoryId}")
+    List<ProductUIDto> getProductByCategory(@PathVariable String categoryId){
+        return productService.getProductByCategory(Long.parseLong(categoryId)).stream()
+                .map(productUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
 }
