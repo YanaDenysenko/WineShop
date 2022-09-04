@@ -32,4 +32,11 @@ public class OrderController {
                 .map(orderUIMapper::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/getByCustomer/{customerId}")
+    List<OrderUIDto> getByCustomer(@PathVariable String customerId){
+        return orderService.getOrderByCustomer(Long.parseLong(customerId)).stream()
+                .map(orderUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
 }

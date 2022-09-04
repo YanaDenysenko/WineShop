@@ -33,4 +33,10 @@ public class OrderStatusController {
                 .map(orderStatusUIMapper::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/getByName/{orderStatusName}")
+    OrderStatusUIDto getByName(@PathVariable String orderStatusName){
+        return orderStatusUIMapper.mapToDto(
+                orderStatusService.getByName(orderStatusName));
+    }
 }

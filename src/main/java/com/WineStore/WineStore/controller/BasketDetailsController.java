@@ -33,4 +33,11 @@ public class BasketDetailsController {
                 .map(basketDetailsUIMapper::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/getAllByProduct/{productId}")
+    List<BasketDetailsUIDto> getAllByProduct(@PathVariable String productId){
+        return basketDetailsService.getAllByProduct(Long.parseLong(productId)).stream()
+                .map(basketDetailsUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
 }

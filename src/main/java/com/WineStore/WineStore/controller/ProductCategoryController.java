@@ -34,4 +34,10 @@ public class ProductCategoryController {
                 .map(productCategoryUIMapper::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/getByName/{productCategoryName}")
+    ProductCategoryUIDto getByName (@PathVariable String productCategoryName){
+        return productCategoryUIMapper.mapToDto(
+                productCategoryService.getByName(productCategoryName));
+    }
 }
