@@ -37,7 +37,7 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     }
 
     @Override
-    public OrderStatus getOrderStatusByName(String name) {
+    public OrderStatus getByName(String name) {
         return orderStatusRepository.getOrderStatusByName(name)
                 .orElseThrow(() -> new OrderStatusNotFoundException(name));
     }

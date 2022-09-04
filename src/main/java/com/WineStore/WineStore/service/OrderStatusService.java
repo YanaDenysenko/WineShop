@@ -13,5 +13,5 @@ public interface OrderStatusService {
 
     List<OrderStatus> getAll();
 
-    OrderStatus getOrderStatusByName(String name);
+    OrderStatus getByName(String name);
 }

@@ -12,4 +12,12 @@ public interface ProductService {
     Product getById(long id);
 
     List<Product> getAll();
+
+    List<Product> getByManufacturer (String manufacturer);
+
+    List<Product> getAvailableProduct();
+
+    List<Product> getProductByOrder(long orderId);
+
+    List<Product> getProductByCategory(long categoryId);
 }

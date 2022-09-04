@@ -12,4 +12,6 @@ public interface OrderService {
     Order getById(long id);
 
     List<Order> getAll();
+
+    List<Order> getOrderByCustomer(long customer_id);
 }

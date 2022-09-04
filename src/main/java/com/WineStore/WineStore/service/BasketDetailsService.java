@@ -12,4 +12,6 @@ public interface BasketDetailsService {
     BasketDetails getById(long id);
 
     List<BasketDetails> getAll();
+
+    List<BasketDetails> getAllByProduct(long productId);
 }

@@ -3,10 +3,12 @@ package com.WineStore.WineStore.service.impl;
 import com.WineStore.WineStore.dto.requestDto.BasketDetailsRequestDto;
 import com.WineStore.WineStore.dto.uiDto.BasketDetailsUIDto;
 import com.WineStore.WineStore.exeption.BasketDetailsNotFountException;
+import com.WineStore.WineStore.exeption.ProductNotFoundException;
 import com.WineStore.WineStore.mapper.impl.uiMapper.BasketDetailsUIMapper;
 import com.WineStore.WineStore.mapper.impl.requestMapper.BasketDetailsRequestMapper;
 import com.WineStore.WineStore.model.BasketDetails;
 import com.WineStore.WineStore.repository.BasketDetailsRepository;
+import com.WineStore.WineStore.repository.ProductRepository;
 import com.WineStore.WineStore.service.BasketDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class BasketDetailsServiceImpl implements BasketDetailsService {
     private final BasketDetailsRepository basketDetailsRepository;
     private final BasketDetailsUIMapper basketDetailsUIMapper;
     private final BasketDetailsRequestMapper basketDetailsRequestMapper;
+    private final ProductRepository productRepository;
 
     @Override
     public BasketDetailsUIDto create(BasketDetailsRequestDto basketDetailsRequestDto) {
@@ -34,5 +37,11 @@ public class BasketDetailsServiceImpl implements BasketDetailsService {
     @Override
     public List<BasketDetails> getAll() {
         return basketDetailsRepository.findAll();
+    }
+
+    @Override
+    public List<BasketDetails> getAllByProduct(long productId) {
+        return basketDetailsRepository.getAllByProduct(productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId)));
     }
 }
