@@ -2,35 +2,40 @@ package com.WineStore.WineStore.controller;
 
 import com.WineStore.WineStore.dto.requestDto.CustomerRequestDto;
 import com.WineStore.WineStore.dto.uiDto.CustomerUIDto;
-import com.WineStore.WineStore.mapper.impl.uiMapper.CustomerUIMapper;
 import com.WineStore.WineStore.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
     private final CustomerService customerService;
-    private final CustomerUIMapper customerUIMapper;
 
     @PostMapping("/create")
-    CustomerUIDto create (@RequestBody CustomerRequestDto customerRequestDto){
+    CustomerUIDto create(@RequestBody CustomerRequestDto customerRequestDto) {
         return customerService.create(customerRequestDto);
     }
 
+    @PutMapping("/updateById/{customerId}")
+    CustomerUIDto updateById(@RequestBody CustomerRequestDto customerRequestDto,
+                              @PathVariable String customerId) {
+        return customerService.updateById(customerRequestDto, Long.parseLong(customerId));
+    }
+
+    @DeleteMapping("/deleteById/{customerId}")
+    CustomerUIDto deleteById(@PathVariable String customerId) {
+        return customerService.deleteById(Long.parseLong(customerId));
+    }
+
     @GetMapping("/getById/{customerId}")
-    CustomerUIDto getById (@PathVariable String customerId){
-        return customerUIMapper.mapToDto(
-                customerService.getById(Long.parseLong(customerId)));
+    CustomerUIDto getById(@PathVariable String customerId) {
+        return customerService.getById(Long.parseLong(customerId));
     }
 
     @GetMapping("/getAll")
-    List<CustomerUIDto> getAllCustomer(){
-        return customerService.getAll().stream()
-                .map(customerUIMapper::mapToDto)
-                .collect(Collectors.toList());
+    List<CustomerUIDto> getAllCustomer() {
+        return customerService.getAll();
     }
 }
