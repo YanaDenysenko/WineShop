@@ -18,6 +18,9 @@ public class OrderStatusUIMapper implements Mapper<OrderStatus, OrderStatusUIDto
 
     @Override
     public OrderStatus mapToModel(OrderStatusUIDto orderStatusUIDto) {
-        return null;
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setId(orderStatusUIDto.getId());
+        orderStatus.setName(orderStatusUIDto.getName());
+        return orderStatus;
     }
 }

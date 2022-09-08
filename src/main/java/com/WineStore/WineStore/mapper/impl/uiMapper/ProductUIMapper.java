@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class ProductUIMapper implements Mapper<Product, ProductUIDto> {
-    ProductCategoryUIMapper productCategoryUIMapper;
+    private final ProductCategoryUIMapper productCategoryUIMapper;
 
     @Override
     public ProductUIDto mapToDto(Product product) {
@@ -26,6 +26,15 @@ public class ProductUIMapper implements Mapper<Product, ProductUIDto> {
 
     @Override
     public Product mapToModel(ProductUIDto productUIDto) {
-        return null;
+        Product product = new Product();
+        product.setId(productUIDto.getId());
+        product.setVendorCode(productUIDto.getVendorCode());
+        product.setName(productUIDto.getName());
+        product.setCategory(productCategoryUIMapper.mapToModel(
+                productUIDto.getProductCategoryUIDto()));
+        product.setUnitPrice(productUIDto.getUnitPrice());
+        product.setManufacturer(productUIDto.getManufacturer());
+        product.setQuantity(productUIDto.getQuantity());
+        return product;
     }
 }

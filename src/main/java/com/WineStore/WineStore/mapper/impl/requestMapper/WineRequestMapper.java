@@ -2,6 +2,7 @@ package com.WineStore.WineStore.mapper.impl.requestMapper;
 
 import com.WineStore.WineStore.dto.requestDto.WineRequestDto;
 import com.WineStore.WineStore.mapper.Mapper;
+import com.WineStore.WineStore.mapper.impl.uiMapper.ProductUIMapper;
 import com.WineStore.WineStore.model.Wine;
 import com.WineStore.WineStore.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class WineRequestMapper implements Mapper<Wine, WineRequestDto> {
-    ProductService productService;
+    private final ProductService productService;
+    private final ProductUIMapper productUIMapper;
 
     @Override
     public WineRequestDto mapToDto(Wine wine) {
@@ -20,7 +22,8 @@ public class WineRequestMapper implements Mapper<Wine, WineRequestDto> {
     @Override
     public Wine mapToModel(WineRequestDto wineRequestDto) {
         Wine wine = new Wine();
-        wine.setProduct(productService.getById(wineRequestDto.getProductId()));
+        wine.setProduct(productUIMapper.mapToModel(productService.getById(
+                wineRequestDto.getProductId())));
         wine.setColor(wineRequestDto.getColor());
         wine.setSweetness(wineRequestDto.getSweetness());
         wine.setRegion(wineRequestDto.getRegion());

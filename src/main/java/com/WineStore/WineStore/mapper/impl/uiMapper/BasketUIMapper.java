@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class BasketUIMapper implements Mapper<Basket, BasketUIDto> {
-    CustomerUIMapper customerUIMapper;
+    private final CustomerUIMapper customerUIMapper;
 
     @Override
     public BasketUIDto mapToDto(Basket basket) {
@@ -21,6 +21,9 @@ public class BasketUIMapper implements Mapper<Basket, BasketUIDto> {
 
     @Override
     public Basket mapToModel(BasketUIDto basketUIDto) {
-        return null;
+        Basket basket = new Basket();
+        basket.setId(basketUIDto.getId());
+        basket.setCustomer(customerUIMapper.mapToModel(basketUIDto.getCustomerUIDto()));
+        return basket;
     }
 }

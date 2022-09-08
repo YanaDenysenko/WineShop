@@ -18,6 +18,9 @@ public class ProductCategoryUIMapper implements Mapper<ProductCategory, ProductC
 
     @Override
     public ProductCategory mapToModel(ProductCategoryUIDto productCategoryUIDto) {
-        return null;
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setId(productCategoryUIDto.getId());
+        productCategory.setName(productCategoryUIDto.getName());
+        return productCategory;
     }
 }

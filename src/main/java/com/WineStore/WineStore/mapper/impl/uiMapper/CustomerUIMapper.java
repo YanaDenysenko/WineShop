@@ -13,6 +13,7 @@ public class CustomerUIMapper implements Mapper<Customer, CustomerUIDto> {
         return CustomerUIDto.builder()
                 .id(customer.getId())
                 .login(customer.getLogin())
+                .password(customer.getPassword())
                 .name(customer.getName())
                 .dateOfBirth(customer.getDateOfBirth())
                 .phoneNumber(customer.getPhoneNumber())
@@ -22,6 +23,14 @@ public class CustomerUIMapper implements Mapper<Customer, CustomerUIDto> {
 
     @Override
     public Customer mapToModel(CustomerUIDto customerUIDto) {
-        return null;
+        Customer customer = new Customer();
+        customer.setId(customerUIDto.getId());
+        customer.setLogin(customerUIDto.getLogin());
+        customer.setPassword(customerUIDto.getPassword());
+        customer.setName(customerUIDto.getName());
+        customer.setDateOfBirth(customerUIDto.getDateOfBirth());
+        customer.setPhoneNumber(customerUIDto.getPhoneNumber());
+        customer.setAddress(customerUIDto.getAddress());
+        return customer;
     }
 }

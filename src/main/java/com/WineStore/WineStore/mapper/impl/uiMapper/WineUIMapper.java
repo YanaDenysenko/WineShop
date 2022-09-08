@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class WineUIMapper implements Mapper<Wine, WineUIDto> {
-    ProductUIMapper productUIMapper;
+    private final ProductUIMapper productUIMapper;
 
     @Override
     public WineUIDto mapToDto(Wine wine) {
@@ -27,6 +27,15 @@ public class WineUIMapper implements Mapper<Wine, WineUIDto> {
 
     @Override
     public Wine mapToModel(WineUIDto wineUIDto) {
-        return null;
+        Wine wine = new Wine();
+        wine.setId(wineUIDto.getId());
+        wine.setProduct(productUIMapper.mapToModel(wineUIDto.getProductUIDto()));
+        wine.setColor(wineUIDto.getColor());
+        wine.setSweetness(wineUIDto.getSweetness());
+        wine.setRegion(wineUIDto.getRegion());
+        wine.setGrapeSort(wineUIDto.getGrapeSort());
+        wine.setClassification(wineUIDto.getClassification());
+        wine.setCapacity(wineUIDto.getCapacity());
+        return wine;
     }
 }

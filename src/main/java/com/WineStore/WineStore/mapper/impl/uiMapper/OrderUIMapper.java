@@ -25,6 +25,12 @@ public class OrderUIMapper implements Mapper<Order, OrderUIDto> {
 
     @Override
     public Order mapToModel(OrderUIDto orderDto) {
-        return null;
+        Order order = new Order();
+        order.setId(orderDto.getId());
+        order.setBasket(basketUIMapper.mapToModel(orderDto.getBasketUIDto()));
+        order.setOrderDate(orderDto.getOrderDate());
+        order.setShippedDate(orderDto.getShippedDate());
+        order.setStatus(orderStatusUIMapper.mapToModel(orderDto.getOrderStatusUIDto()));
+        return order;
     }
 }
