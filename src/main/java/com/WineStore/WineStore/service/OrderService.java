@@ -2,16 +2,19 @@ package com.WineStore.WineStore.service;
 
 import com.WineStore.WineStore.dto.requestDto.OrderRequestDto;
 import com.WineStore.WineStore.dto.uiDto.OrderUIDto;
-import com.WineStore.WineStore.model.Order;
 import java.util.List;
 
 public interface OrderService {
 
-    OrderUIDto create (OrderRequestDto orderRequestDto);
+    OrderUIDto create(OrderRequestDto orderRequestDto);
 
-    Order getById(long id);
+    OrderUIDto updateById(OrderRequestDto orderRequestDto, long id);
 
-    List<Order> getAll();
+    void deleteById(long id);
 
-    List<Order> getOrderByCustomer(long customer_id);
+    OrderUIDto getById(long id);
+
+    List<OrderUIDto> getAll();
+
+    List<OrderUIDto> getOrderByCustomer(long customer_id);
 }

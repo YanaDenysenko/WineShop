@@ -10,7 +10,9 @@ import com.WineStore.WineStore.repository.CustomerRepository;
 import com.WineStore.WineStore.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -26,13 +28,42 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getById(long id) {
-        return customerRepository.findById(id)
+    public CustomerUIDto updateById(CustomerRequestDto customerRequestDto, long id) {
+        Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
+
+        customer.setLogin(customerRequestDto.getLogin());
+        customer.setPassword(customerRequestDto.getPassword());
+        customer.setName(customerRequestDto.getName());
+        customer.setDateOfBirth(customerRequestDto.getDateOfBirth());
+        customer.setPhoneNumber(customerRequestDto.getPhoneNumber());
+        customer.setAddress(customerRequestDto.getAddress());
+        customer.setModified(new Timestamp(System.currentTimeMillis()));
+
+        return customerUIMapper.mapToDto(customerRepository.save(customer));
     }
 
     @Override
-    public List<Customer> getAll() {
-        return customerRepository.findAll();
+    public CustomerUIDto deleteById(long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException(id));
+
+        customer.setModified(new Timestamp(System.currentTimeMillis()));
+        customer.setDeleted(true);
+
+        return customerUIMapper.mapToDto(customerRepository.save(customer));
+    }
+
+    @Override
+    public CustomerUIDto getById(long id) {
+        return customerUIMapper.mapToDto(customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException(id)));
+    }
+
+    @Override
+    public List<CustomerUIDto> getAll() {
+        return customerRepository.findAll().stream()
+                .map(customerUIMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 }

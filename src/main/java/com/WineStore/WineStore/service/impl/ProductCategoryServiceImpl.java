@@ -10,7 +10,9 @@ import com.WineStore.WineStore.repository.ProductCategoryRepository;
 import com.WineStore.WineStore.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -26,19 +28,44 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public ProductCategory getById(long id) {
-        return productCategoryRepository.findById(id)
+    public ProductCategoryUIDto updateById(ProductCategoryRequestDto productCategoryRequestDto,
+                                           long id) {
+        ProductCategory productCategory = productCategoryRepository.findById(id)
                 .orElseThrow(() -> new ProductCategoryNotFoundException(String.valueOf(id)));
+
+        productCategory.setName(productCategoryRequestDto.getName());
+        productCategory.setModified(new Timestamp(System.currentTimeMillis()));
+
+        return productCategoryUIMapper.mapToDto(productCategoryRepository.save(productCategory));
     }
 
     @Override
-    public List<ProductCategory> getAll() {
-        return productCategoryRepository.findAll();
+    public ProductCategoryUIDto deleteById(long id) {
+        ProductCategory productCategory = productCategoryRepository.findById(id)
+                .orElseThrow(() -> new ProductCategoryNotFoundException(String.valueOf(id)));
+
+        productCategory.setDeleted(true);
+        productCategory.setModified(new Timestamp(System.currentTimeMillis()));
+
+        return productCategoryUIMapper.mapToDto(productCategoryRepository.save(productCategory));
     }
 
     @Override
-    public ProductCategory getByName(String name) {
-        return productCategoryRepository.getByName(name)
-                .orElseThrow(() -> new ProductCategoryNotFoundException(name));
+    public ProductCategoryUIDto getById(long id) {
+        return productCategoryUIMapper.mapToDto(productCategoryRepository.findById(id)
+                .orElseThrow(() -> new ProductCategoryNotFoundException(String.valueOf(id))));
+    }
+
+    @Override
+    public List<ProductCategoryUIDto> getAll() {
+        return productCategoryRepository.findAll().stream()
+                .map(productCategoryUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductCategoryUIDto getByName(String name) {
+        return productCategoryUIMapper.mapToDto(productCategoryRepository.getByName(name)
+                .orElseThrow(() -> new ProductCategoryNotFoundException(name)));
     }
 }

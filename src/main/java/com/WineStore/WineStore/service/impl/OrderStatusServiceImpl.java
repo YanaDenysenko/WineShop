@@ -10,7 +10,9 @@ import com.WineStore.WineStore.repository.OrderStatusRepository;
 import com.WineStore.WineStore.service.OrderStatusService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -26,19 +28,43 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     }
 
     @Override
-    public OrderStatus getById(long id) {
-        return orderStatusRepository.findById(id)
+    public OrderStatusUIDto updateById(OrderStatusRequestDto orderStatusRequestDto, long id) {
+        OrderStatus orderStatus = orderStatusRepository.findById(id)
                 .orElseThrow(() -> new OrderStatusNotFoundException(String.valueOf(id)));
+
+        orderStatus.setName(orderStatusRequestDto.getName());
+        orderStatus.setModified(new Timestamp(System.currentTimeMillis()));
+
+        return orderStatusUIMapper.mapToDto(orderStatusRepository.save(orderStatus));
     }
 
     @Override
-    public List<OrderStatus> getAll() {
-        return orderStatusRepository.findAll();
+    public OrderStatusUIDto deleteById(long id) {
+        OrderStatus orderStatus = orderStatusRepository.findById(id)
+                .orElseThrow(() -> new OrderStatusNotFoundException(String.valueOf(id)));
+
+        orderStatus.setDeleted(true);
+        orderStatus.setModified(new Timestamp(System.currentTimeMillis()));
+
+        return orderStatusUIMapper.mapToDto(orderStatusRepository.save(orderStatus));
     }
 
     @Override
-    public OrderStatus getByName(String name) {
-        return orderStatusRepository.getOrderStatusByName(name)
-                .orElseThrow(() -> new OrderStatusNotFoundException(name));
+    public OrderStatusUIDto getById(long id) {
+        return orderStatusUIMapper.mapToDto(orderStatusRepository.findById(id)
+                .orElseThrow(() -> new OrderStatusNotFoundException(String.valueOf(id))));
+    }
+
+    @Override
+    public List<OrderStatusUIDto> getAll() {
+        return orderStatusRepository.findAll().stream()
+                .map(orderStatusUIMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderStatusUIDto getByName(String name) {
+        return orderStatusUIMapper.mapToDto(orderStatusRepository.getOrderStatusByName(name)
+                .orElseThrow(() -> new OrderStatusNotFoundException(name)));
     }
 }
