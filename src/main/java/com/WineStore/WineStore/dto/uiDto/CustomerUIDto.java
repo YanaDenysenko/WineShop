@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 public class CustomerUIDto {
     private long id;
     private String login;
+    private String password;
     private String name;
     private Timestamp dateOfBirth;
     private String phoneNumber;

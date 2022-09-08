@@ -8,7 +8,7 @@ import lombok.Data;
 public class ProductRequestDto {
     private long vendorCode;
     private String name;
-    private ProductCategoryRequestDto productCategoryRequestDto;
+    private long productCategoryId;
     private double unitPrice;
     private String manufacturer;
     private int quantity;

@@ -10,5 +10,5 @@ public class OrderRequestDto {
     private long basketId;
     private Timestamp orderDate;
     private Timestamp shippedDate;
-    private OrderStatusRequestDto orderStatusRequestDto;
+    private long orderStatusId;
 }
