@@ -1,6 +1,10 @@
 package com.WineStore.WineStore.service;
 
+import com.WineStore.WineStore.dto.requestDto.OrderStatusRequestDto;
+import com.WineStore.WineStore.dto.uiDto.OrderStatusUIDto;
 import com.WineStore.WineStore.exeption.OrderStatusNotFoundException;
+import com.WineStore.WineStore.mapper.impl.requestMapper.OrderStatusRequestMapper;
+import com.WineStore.WineStore.mapper.impl.uiMapper.OrderStatusUIMapper;
 import com.WineStore.WineStore.model.OrderStatus;
 import com.WineStore.WineStore.repository.OrderStatusRepository;
 import com.WineStore.WineStore.service.impl.OrderStatusServiceImpl;
@@ -21,58 +25,114 @@ public class OrderStatusServiceTest {
     @Mock
     OrderStatusRepository orderStatusRepository;
 
+    @Mock
+    OrderStatusUIMapper orderStatusUIMapper;
+
+    @Mock
+    OrderStatusRequestMapper orderStatusRequestMapper;
+
     @InjectMocks
     OrderStatusServiceImpl orderStatusService;
 
     @Test
-    public void createOrderStatus(){
+    public void createOrderStatus() {
+        long id = 1;
+        OrderStatus mockOrderStatus = new OrderStatus();
+        OrderStatusUIDto mockOrderStatusUIDto = fillOrderStatusUIDto(id);
+        OrderStatusRequestDto mockOrderStatusRequestDto = filOrderStatusRequestDto();
+
+        when(orderStatusRepository.save(mockOrderStatus)).thenReturn(mockOrderStatus);
+        when(orderStatusUIMapper.mapToDto(mockOrderStatus)).thenReturn(mockOrderStatusUIDto);
+        when(orderStatusRequestMapper.mapToModel(mockOrderStatusRequestDto)).thenReturn(mockOrderStatus);
+
+        Assert.assertEquals(mockOrderStatusUIDto, orderStatusService.create(mockOrderStatusRequestDto));
     }
 
     @Test
-    public void getOrderStatusByCorrectId(){
+    public void updateOrderStatusById() {
         long id = 1;
-        String name = "statusName";
+        OrderStatus mockOrderStatus = new OrderStatus();
+        OrderStatusUIDto mockOrderStatusUIDto = fillOrderStatusUIDto(id);
+        OrderStatusRequestDto mockOrderStatusRequestDto = filOrderStatusRequestDto();
 
-        when(orderStatusRepository.findById(id)).thenReturn(fillOrderStatus(id, name));
-        Assert.assertEquals(id, orderStatusService.getById(id).getId());
-        Assert.assertEquals(name, orderStatusService.getById(id).getName());
+        when(orderStatusRepository.save(mockOrderStatus)).thenReturn(mockOrderStatus);
+        when(orderStatusRepository.findById(id)).thenReturn(Optional.of(mockOrderStatus));
+        when(orderStatusUIMapper.mapToDto(mockOrderStatus)).thenReturn(mockOrderStatusUIDto);
+
+        Assert.assertEquals(mockOrderStatusUIDto, orderStatusService.updateById(
+                mockOrderStatusRequestDto, id));
+    }
+
+    @Test
+    public void deleteOrderStatusById() {
+        long id = 1;
+        OrderStatus mockOrderStatus = new OrderStatus();
+        OrderStatusUIDto mockOrderStatusUIDto = fillOrderStatusUIDto(id);
+
+        when(orderStatusRepository.save(mockOrderStatus)).thenReturn(mockOrderStatus);
+        when(orderStatusRepository.findById(id)).thenReturn(Optional.of(mockOrderStatus));
+        when(orderStatusUIMapper.mapToDto(mockOrderStatus)).thenReturn(mockOrderStatusUIDto);
+
+        Assert.assertEquals(mockOrderStatusUIDto, orderStatusService.deleteById(id));
+    }
+
+    @Test
+    public void getOrderStatusByCorrectId() {
+        long id = 1;
+        OrderStatus mockOrderStatus = new OrderStatus();
+        OrderStatusUIDto mockOrderStatusUIDto = fillOrderStatusUIDto(id);
+
+        when(orderStatusRepository.findById(id)).thenReturn(Optional.of(mockOrderStatus));
+        when(orderStatusUIMapper.mapToDto(mockOrderStatus)).thenReturn(mockOrderStatusUIDto);
+
+        Assert.assertEquals(mockOrderStatusUIDto, orderStatusService.getById(id));
     }
 
     @Test(expected = OrderStatusNotFoundException.class)
-    public void getOrderStatusByNonExistenceId(){
+    public void getOrderStatusByNonExistenceId() {
         orderStatusService.getById(1);
     }
 
+    //TODO
     @Test
-    public void getAllOrderStatuses(){
+    public void getAllOrderStatuses() {
     }
 
     @Test
-    public void getOrderByCorrectName(){
+    public void getOrderStatusByCorrectName() {
         long id = 1;
-        String name = "statusName";
+        String name = "name";
+        OrderStatus mockOrderStatus = new OrderStatus();
+        OrderStatusUIDto mockOrderStatusUIDto = fillOrderStatusUIDto(id);
 
-        when(orderStatusRepository.getOrderStatusByName(name)).thenReturn(fillOrderStatus(id, name));
-        Assert.assertEquals(id, orderStatusService.getByName(name).getId());
-        Assert.assertEquals(name, orderStatusService.getByName(name).getName());
+        when(orderStatusRepository.getOrderStatusByName(name)).thenReturn(Optional.of(mockOrderStatus));
+        when(orderStatusUIMapper.mapToDto(mockOrderStatus)).thenReturn(mockOrderStatusUIDto);
+
+        Assert.assertEquals(mockOrderStatusUIDto, orderStatusService.getByName(name));
     }
 
     @Test(expected = OrderStatusNotFoundException.class)
-    public void getOrderStatusByNonExistenceName(){
+    public void getOrderStatusByNonExistenceName() {
         orderStatusService.getByName("");
     }
 
-    private Optional<OrderStatus> fillOrderStatus(long id, String name){
-        OrderStatus orderStatus = new OrderStatus();
-        orderStatus.setId(id);
-        orderStatus.setName(name);
-        return Optional.of(orderStatus);
+    private OrderStatusUIDto fillOrderStatusUIDto(long id) {
+        return OrderStatusUIDto.builder()
+                .id(id)
+                .name("name")
+                .build();
     }
 
-    private List<OrderStatus> fillOrderStatusList(){
-        List<OrderStatus> orderStatusList = new ArrayList<>();
-        orderStatusList.add(fillOrderStatus(1, "name1").get());
-        orderStatusList.add(fillOrderStatus(2, "name2").get());
-        return orderStatusList;
+    private OrderStatusRequestDto filOrderStatusRequestDto() {
+        return OrderStatusRequestDto.builder()
+                .name("name")
+                .build();
+    }
+
+    private List<OrderStatusUIDto> fillOrderStatusUIDtoList() {
+        List<OrderStatusUIDto> orderStatusUIDtoList = new ArrayList<>();
+        orderStatusUIDtoList.add(fillOrderStatusUIDto(1));
+        orderStatusUIDtoList.add(fillOrderStatusUIDto(2));
+        return orderStatusUIDtoList;
     }
 }

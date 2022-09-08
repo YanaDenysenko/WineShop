@@ -1,6 +1,10 @@
 package com.WineStore.WineStore.service;
 
+import com.WineStore.WineStore.dto.requestDto.CustomerRequestDto;
+import com.WineStore.WineStore.dto.uiDto.CustomerUIDto;
 import com.WineStore.WineStore.exeption.CustomerNotFoundException;
+import com.WineStore.WineStore.mapper.impl.requestMapper.CustomerRequestMapper;
+import com.WineStore.WineStore.mapper.impl.uiMapper.CustomerUIMapper;
 import com.WineStore.WineStore.model.Customer;
 import com.WineStore.WineStore.repository.CustomerRepository;
 import com.WineStore.WineStore.service.impl.CustomerServiceImpl;
@@ -13,7 +17,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,74 +25,116 @@ public class CustomerServiceTest {
     @Mock
     CustomerRepository customerRepository;
 
+    @Mock
+    CustomerUIMapper customerUIMapper;
+
+    @Mock
+    CustomerRequestMapper customerRequestMapper;
+
     @InjectMocks
     CustomerServiceImpl customerService;
 
     @Test
-    public void createCustomer(){
+    public void createCustomer() {
+        long id = 1;
+        Customer mockCustomer = new Customer();
+        CustomerUIDto mockCustomerUIDto = fillCustomerUIDto(id);
+        CustomerRequestDto mockCustomerRequestDto = fillCustomerRequestDt();
+
+        when(customerRepository.save(mockCustomer)).thenReturn(mockCustomer);
+        when(customerUIMapper.mapToDto(mockCustomer)).thenReturn(mockCustomerUIDto);
+        when(customerRequestMapper.mapToModel(mockCustomerRequestDto)).thenReturn(mockCustomer);
+
+        Assert.assertEquals(mockCustomerUIDto, customerService.create(mockCustomerRequestDto));
     }
 
     @Test
-    public void getCustomerByCorrectId(){
+    public void updateCustomerById() {
         long id = 1;
+        Customer mockCustomer = new Customer();
+        CustomerUIDto mockCustomerUIDto = fillCustomerUIDto(id);
+        CustomerRequestDto mockCustomerRequestDto = fillCustomerRequestDt();
+
+        when(customerRepository.save(mockCustomer)).thenReturn(mockCustomer);
+        when(customerRepository.findById(id)).thenReturn(Optional.of(mockCustomer));
+        when(customerUIMapper.mapToDto(mockCustomer)).thenReturn(mockCustomerUIDto);
+
+        Assert.assertEquals(mockCustomerUIDto, customerService.updateById(
+                mockCustomerRequestDto, id));
+    }
+
+    @Test
+    public void deleteCustomerById() {
+        long id = 1;
+        Customer mockCustomer = new Customer();
+        CustomerUIDto mockCustomerUIDto = fillCustomerUIDto(id);
+
+        when(customerRepository.save(mockCustomer)).thenReturn(mockCustomer);
+        when(customerRepository.findById(id)).thenReturn(Optional.of(mockCustomer));
+        when(customerUIMapper.mapToDto(mockCustomer)).thenReturn(mockCustomerUIDto);
+
+        Assert.assertEquals(mockCustomerUIDto, customerService.deleteById(id));
+    }
+
+    @Test
+    public void getCustomerByCorrectId() {
+        long id = 1;
+        Customer mockCustomer = new Customer();
+        CustomerUIDto mockCustomerUIDto = fillCustomerUIDto(id);
+
+        when(customerRepository.findById(id)).thenReturn(Optional.of(mockCustomer));
+        when(customerUIMapper.mapToDto(mockCustomer)).thenReturn(mockCustomerUIDto);
+
+        Assert.assertEquals(mockCustomerUIDto, customerService.getById(id));
+    }
+
+    @Test(expected = CustomerNotFoundException.class)
+    public void getCustomerByNonExistenceId() {
+        customerService.getById(1);
+    }
+
+    //TODO
+    @Test
+    public void getAllCustomers() {
+    }
+
+    private CustomerUIDto fillCustomerUIDto(long id) {
         String login = "login";
         String password = "password";
         String name = "name";
         String phoneNumber = "phoneNumber";
         String address = "address";
 
-        when(customerRepository.findById(id)).thenReturn(fillCustomer(
-                id, login, password, name, phoneNumber, address));
-
-        Assert.assertEquals(id, customerService.getById(id).getId());
-        Assert.assertEquals(login, customerService.getById(id).getLogin());
-        Assert.assertEquals(password, customerService.getById(id).getPassword());
-        Assert.assertEquals(phoneNumber, customerService.getById(id).getPhoneNumber());
-        Assert.assertEquals(address, customerService.getById(id).getAddress());
+        return CustomerUIDto.builder()
+                .id(id)
+                .login(login)
+                .password(password)
+                .name(name)
+                .phoneNumber(phoneNumber)
+                .address(address)
+                .build();
     }
 
-    @Test(expected = CustomerNotFoundException.class)
-    public void getCustomerByNonExistenceId(){
-        customerService.getById(1);
+    private CustomerRequestDto fillCustomerRequestDt() {
+        String login = "login";
+        String password = "password";
+        String name = "name";
+        String phoneNumber = "phoneNumber";
+        String address = "address";
+
+        return CustomerRequestDto.builder()
+                .login(login)
+                .password(password)
+                .name(name)
+                .phoneNumber(phoneNumber)
+                .address(address)
+                .build();
     }
 
-    @Test
-    public void getAllCustomers(){
-        when(customerRepository.findAll()).thenReturn(fillCustomerList());
-
-        IntStream.range(0, customerService.getAll().size())
-                .forEach(i -> {
-                    Assert.assertEquals(fillCustomerList().get(i).getId(),
-                            customerService.getAll().get(i).getId());
-                    Assert.assertEquals(fillCustomerList().get(i).getLogin(),
-                            customerService.getAll().get(i).getLogin());
-                    Assert.assertEquals(fillCustomerList().get(i).getPassword(),
-                            customerService.getAll().get(i).getPassword());
-                    Assert.assertEquals(fillCustomerList().get(i).getPhoneNumber(),
-                            customerService.getAll().get(i).getPhoneNumber());
-                    Assert.assertEquals(fillCustomerList().get(i).getAddress(),
-                            customerService.getAll().get(i).getAddress());
-                });
-    }
-
-    private List<Customer> fillCustomerList() {
-        List<Customer> customerList = new ArrayList<>();
-        customerList.add(fillCustomer(1, "login1", "password1", "name1",
-                "phoneNumber1", "address1").get());
-        customerList.add(fillCustomer(2, "login2", "password2", "name2",
-                "phoneNumber2", "address2").get());
-        return customerList;
-    }
-
-    private Optional<Customer> fillCustomer(long id, String login, String password, String name,
-                                            String phoneNumber, String address) {
-        Customer customer = new Customer();
-        customer.setId(id);
-        customer.setLogin(login);
-        customer.setPassword(password);
-        customer.setName(name);
-        customer.setPhoneNumber(phoneNumber);
-        customer.setAddress(address);
-        return Optional.of(customer);
+    List<CustomerUIDto> fillCustomerUIDtoList() {
+        List<CustomerUIDto> customerUIDtoList = new ArrayList<>();
+        customerUIDtoList.add(fillCustomerUIDto(1));
+        customerUIDtoList.add(fillCustomerUIDto(2));
+        return customerUIDtoList;
     }
 }

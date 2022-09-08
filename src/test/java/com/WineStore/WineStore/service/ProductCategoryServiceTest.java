@@ -1,6 +1,10 @@
 package com.WineStore.WineStore.service;
 
+import com.WineStore.WineStore.dto.requestDto.ProductCategoryRequestDto;
+import com.WineStore.WineStore.dto.uiDto.ProductCategoryUIDto;
 import com.WineStore.WineStore.exeption.ProductCategoryNotFoundException;
+import com.WineStore.WineStore.mapper.impl.requestMapper.ProductCategoryRequestMapper;
+import com.WineStore.WineStore.mapper.impl.uiMapper.ProductCategoryUIMapper;
 import com.WineStore.WineStore.model.ProductCategory;
 import com.WineStore.WineStore.repository.ProductCategoryRepository;
 import com.WineStore.WineStore.service.impl.ProductCategoryServiceImpl;
@@ -21,58 +25,124 @@ public class ProductCategoryServiceTest {
     @Mock
     ProductCategoryRepository productCategoryRepository;
 
+    @Mock
+    ProductCategoryUIMapper productCategoryUIMapper;
+
+    @Mock
+    ProductCategoryRequestMapper productCategoryRequestMapper;
+
     @InjectMocks
     ProductCategoryServiceImpl productCategoryService;
 
     @Test
     public void createProductCategory(){
+        long id = 1;
+        ProductCategory mockProductCategory = new ProductCategory();
+        ProductCategoryUIDto mockProductCategoryUIDto = fillProductCategoryUIDto(id);
+        ProductCategoryRequestDto mockProductCategoryRequestDto = fillProductCategoryRequestDto();
+
+        when(productCategoryRepository.save(mockProductCategory)).thenReturn(mockProductCategory);
+        when(productCategoryUIMapper.mapToDto(mockProductCategory))
+                .thenReturn(mockProductCategoryUIDto);
+        when(productCategoryRequestMapper.mapToModel(mockProductCategoryRequestDto))
+                .thenReturn(mockProductCategory);
+
+        Assert.assertEquals(mockProductCategoryUIDto,
+                productCategoryService.create(mockProductCategoryRequestDto));
     }
 
     @Test
-    public void getProductCategoryByCorrectId(){
+    public void updateProductCategoryById() {
         long id = 1;
-        String name = "categoryName";
+        ProductCategory mockProductCategory = new ProductCategory();
+        ProductCategoryUIDto mockProductCategoryUIDto = fillProductCategoryUIDto(id);
+        ProductCategoryRequestDto mockProductCategoryRequestDto = fillProductCategoryRequestDto();
 
-        when(productCategoryRepository.findById(id)).thenReturn(fillProductCategory(id, name));
-        Assert.assertEquals(id, productCategoryService.getById(id).getId());
-        Assert.assertEquals(name, productCategoryService.getById(id).getName());
+        when(productCategoryRepository.save(mockProductCategory)).thenReturn(mockProductCategory);
+        when(productCategoryRepository.findById(id)).thenReturn(Optional.of(mockProductCategory));
+        when(productCategoryUIMapper.mapToDto(mockProductCategory))
+                .thenReturn(mockProductCategoryUIDto);
+
+        Assert.assertEquals(mockProductCategoryUIDto,
+                productCategoryService.updateById(mockProductCategoryRequestDto, id));
+    }
+
+    @Test
+    public void deleteProductCategoryById() {
+        long id = 1;
+        ProductCategory mockProductCategory = new ProductCategory();
+        ProductCategoryUIDto mockProductCategoryUIDto = fillProductCategoryUIDto(id);
+
+        when(productCategoryRepository.save(mockProductCategory)).thenReturn(mockProductCategory);
+        when(productCategoryRepository.findById(id)).thenReturn(Optional.of(mockProductCategory));
+        when(productCategoryUIMapper.mapToDto(mockProductCategory))
+                .thenReturn(mockProductCategoryUIDto);
+
+        Assert.assertEquals(mockProductCategoryUIDto,
+                productCategoryService.deleteById(id));
+    }
+
+    @Test
+    public void getProductCategoryByCorrectId() {
+        long id = 1;
+        ProductCategory mockProductCategory = new ProductCategory();
+        ProductCategoryUIDto mockProductCategoryUIDto = fillProductCategoryUIDto(id);
+
+        when(productCategoryRepository.findById(id)).thenReturn(Optional.of(mockProductCategory));
+        when(productCategoryUIMapper.mapToDto(mockProductCategory))
+                .thenReturn(mockProductCategoryUIDto);
+
+        Assert.assertEquals(mockProductCategoryUIDto,
+                productCategoryService.getById(id));
     }
 
     @Test(expected = ProductCategoryNotFoundException.class)
-    public void getProductCategoryByNonExistenceId(){
+    public void getProductCategoryByNonExistenceId() {
         productCategoryService.getById(1);
     }
 
+    //TODO
     @Test
-    public void getAllProductCategories(){
+    public void getAllProductCategories() {
     }
 
     @Test
-    public void getProductCategoryByCorrectName(){
+    public void getProductCategoryByCorrectName() {
         long id = 1;
-        String name = "categoryName";
+        String name = "name";
+        ProductCategory mockProductCategory = new ProductCategory();
+        ProductCategoryUIDto mockProductCategoryUIDto = fillProductCategoryUIDto(id);
 
-        when(productCategoryRepository.getByName(name)).thenReturn(fillProductCategory(id, name));
-        Assert.assertEquals(id, productCategoryService.getByName(name).getId());
-        Assert.assertEquals(name, productCategoryService.getByName(name).getName());
+        when(productCategoryRepository.getByName(name)).thenReturn(Optional.of(mockProductCategory));
+        when(productCategoryUIMapper.mapToDto(mockProductCategory))
+                .thenReturn(mockProductCategoryUIDto);
+
+        Assert.assertEquals(mockProductCategoryUIDto,
+                productCategoryService.getByName(name));
     }
 
     @Test(expected = ProductCategoryNotFoundException.class)
-    public void getProductCategoryByNonExistenceName(){
+    public void getProductCategoryByNonExistenceName() {
         productCategoryService.getByName("");
     }
 
-    private Optional<ProductCategory> fillProductCategory(long id, String name){
-        ProductCategory productCategory = new ProductCategory();
-        productCategory.setId(id);
-        productCategory.setName(name);
-        return Optional.of(productCategory);
+    private ProductCategoryUIDto fillProductCategoryUIDto(long id) {
+        return ProductCategoryUIDto.builder()
+                .id(id)
+                .name("name")
+                .build();
     }
 
-    private List<ProductCategory> fillProductCategoryList(){
-        List<ProductCategory> productCategoryList = new ArrayList<>();
-        productCategoryList.add(fillProductCategory(1, "name1").get());
-        productCategoryList.add(fillProductCategory(2, "name2").get());
-        return productCategoryList;
+    private ProductCategoryRequestDto fillProductCategoryRequestDto() {
+        return ProductCategoryRequestDto.builder()
+                .name("name")
+                .build();
+    }
+
+    private List<ProductCategoryUIDto> fillProductCategoryUIDtoList(){
+        List<ProductCategoryUIDto> productCategoryUIDtoList = new ArrayList<>();
+        productCategoryUIDtoList.add(fillProductCategoryUIDto(1));
+        productCategoryUIDtoList.add(fillProductCategoryUIDto(2));
+        return productCategoryUIDtoList;
     }
 }

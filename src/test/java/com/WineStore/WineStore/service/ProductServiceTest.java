@@ -1,8 +1,14 @@
 package com.WineStore.WineStore.service;
 
+import com.WineStore.WineStore.dto.requestDto.ProductRequestDto;
+import com.WineStore.WineStore.dto.uiDto.ProductCategoryUIDto;
+import com.WineStore.WineStore.dto.uiDto.ProductUIDto;
 import com.WineStore.WineStore.exeption.ProductNotFoundException;
+import com.WineStore.WineStore.mapper.impl.requestMapper.ProductRequestMapper;
+import com.WineStore.WineStore.mapper.impl.uiMapper.ProductUIMapper;
 import com.WineStore.WineStore.model.Product;
 import com.WineStore.WineStore.model.ProductCategory;
+import com.WineStore.WineStore.repository.ProductCategoryRepository;
 import com.WineStore.WineStore.repository.ProductRepository;
 import com.WineStore.WineStore.service.impl.ProductServiceImpl;
 import org.junit.Assert;
@@ -22,59 +28,105 @@ public class ProductServiceTest {
     @Mock
     ProductRepository productRepository;
 
+    @Mock
+    ProductUIMapper productUIMapper;
+
+    @Mock
+    ProductRequestMapper productRequestMapper;
+
+    @Mock
+    ProductCategoryRepository productCategoryRepository;
+
     @InjectMocks
     ProductServiceImpl productService;
 
     @Test
-    public void createProduct(){
+    public void createProduct() {
+        long id = 1;
+        Product mockProduct = new Product();
+        ProductUIDto mockProductUIDto = fillProductUIDto(id);
+        ProductRequestDto mockProductRequestDto = fillProductRequestDto();
+
+        when(productRepository.save(mockProduct)).thenReturn(mockProduct);
+        when(productUIMapper.mapToDto(mockProduct)).thenReturn(mockProductUIDto);
+        when(productRequestMapper.mapToModel(mockProductRequestDto)).thenReturn(mockProduct);
+
+        Assert.assertEquals(mockProductUIDto, productService.create(mockProductRequestDto));
     }
 
     @Test
-    public void getProductByCorrectId(){
+    public void updateProductById() {
         long id = 1;
-        long vendorCode = 111;
-        String name = "name";
-        double unitPrice = 111;
-        String manufacture = "manufacture";
-        int quantity = 111;
+        Product mockProduct = new Product();
+        ProductUIDto mockProductUIDto = fillProductUIDto(id);
+        ProductRequestDto mockProductRequestDto = fillProductRequestDto();
 
-        when(productRepository.findById(id)).thenReturn(fillProduct(
-                id, vendorCode, name, unitPrice, manufacture, quantity));
-        Assert.assertEquals(id, productService.getById(id).getId());
-        Assert.assertEquals(vendorCode, productService.getById(id).getVendorCode());
-        Assert.assertEquals(name, productService.getById(id).getName());
-        Assert.assertEquals(manufacture, productService.getById(id).getManufacturer());
-        Assert.assertEquals(quantity, productService.getById(id).getQuantity());
+        when(productRepository.save(mockProduct)).thenReturn(mockProduct);
+        when(productRepository.findById(id)).thenReturn(Optional.of(mockProduct));
+        when(productUIMapper.mapToDto(mockProduct)).thenReturn(mockProductUIDto);
+        when(productCategoryRepository.findById(mockProductRequestDto.getProductCategoryId()))
+                .thenReturn(Optional.of(new ProductCategory()));
 
+        Assert.assertEquals(mockProductUIDto, productService.updateById(mockProductRequestDto, id));
+    }
+
+    @Test
+    public void deleteProductById() {
+        long id = 1;
+        Product mockProduct = new Product();
+        ProductUIDto mockProductUIDto = fillProductUIDto(id);
+
+        when(productRepository.save(mockProduct)).thenReturn(mockProduct);
+        when(productRepository.findById(id)).thenReturn(Optional.of(mockProduct));
+        when(productUIMapper.mapToDto(mockProduct)).thenReturn(mockProductUIDto);
+
+        Assert.assertEquals(mockProductUIDto, productService.deleteById(id));
+    }
+
+    @Test
+    public void getProductByCorrectId() {
+        long id = 1;
+        Product mockProduct = new Product();
+        ProductUIDto mockProductUIDto = fillProductUIDto(id);
+
+        when(productRepository.findById(id)).thenReturn(Optional.of(mockProduct));
+        when(productUIMapper.mapToDto(mockProduct)).thenReturn(mockProductUIDto);
+
+        Assert.assertEquals(mockProductUIDto, productService.getById(id));
     }
 
     @Test(expected = ProductNotFoundException.class)
-    public void getProductByNonExistenceId(){
+    public void getProductByNonExistenceId() {
         productService.getById(1);
     }
 
+    //TODO
     @Test
-    public void getAllProducts(){
+    public void getAllProducts() {
     }
 
+    //TODO
     @Test
-    public void getProductsByManufacturer(){
+    public void getProductsByManufacturer() {
     }
 
+    //TODO
     @Test
-    public void getAvailableProducts(){
+    public void getAvailableProducts() {
     }
 
+    //TODO
     @Test
-    public void getProductsByOrderId(){
+    public void getProductsByOrderId() {
     }
 
+    //TODO
     @Test
-    public void getProductsByCategoryId(){
+    public void getProductsByCategoryId() {
     }
 
     private Optional<Product> fillProduct(long id, long vendorCode, String name,
-                                          double unitPrice, String manufacture, int quantity){
+                                          double unitPrice, String manufacture, int quantity) {
         Product product = new Product();
         product.setId(id);
         product.setVendorCode(vendorCode);
@@ -85,19 +137,45 @@ public class ProductServiceTest {
         return Optional.of(product);
     }
 
-    private Optional<ProductCategory> fillProductCategory(long id, String name){
-        ProductCategory productCategory = new ProductCategory();
-        productCategory.setId(id);
-        productCategory.setName(name);
-        return Optional.of(productCategory);
+    private ProductUIDto fillProductUIDto(long id) {
+        long vendorCode = 111;
+        String name = "name";
+        double unitPrice = 111;
+        String manufacture = "manufacture";
+        int quantity = 111;
+
+        return ProductUIDto.builder()
+                .id(id)
+                .vendorCode(vendorCode)
+                .name(name)
+                .productCategoryUIDto(ProductCategoryUIDto.builder().id(1).build())
+                .unitPrice(unitPrice)
+                .manufacturer(manufacture)
+                .quantity(quantity)
+                .build();
     }
 
-    private List<Product> fillProductList(){
-        List<Product> productList = new ArrayList<>();
-        productList.add(fillProduct(
-                1, 1, "name1", 111, "Manufacturer1", 1).get());
-        productList.add(fillProduct(
-                2, 2, "name2", 222, "Manufacturer2", 2).get());
-        return productList;
+    private ProductRequestDto fillProductRequestDto() {
+        long vendorCode = 111;
+        String name = "name";
+        double unitPrice = 111;
+        String manufacture = "manufacture";
+        int quantity = 111;
+
+        return ProductRequestDto.builder()
+                .vendorCode(vendorCode)
+                .name(name)
+                .productCategoryId(1)
+                .unitPrice(unitPrice)
+                .manufacturer(manufacture)
+                .quantity(quantity)
+                .build();
+    }
+
+    private List<ProductUIDto> fillProductUIDtoList() {
+        List<ProductUIDto> productUIDtoList = new ArrayList<>();
+        productUIDtoList.add(fillProductUIDto(1));
+        productUIDtoList.add(fillProductUIDto(2));
+        return productUIDtoList;
     }
 }
