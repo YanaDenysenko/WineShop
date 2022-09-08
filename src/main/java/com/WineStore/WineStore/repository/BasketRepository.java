@@ -16,5 +16,5 @@ public interface BasketRepository extends JpaRepository<Basket, Long> {
             "where customer_id = :customer_id " +
             "and id not in (select basket_id from wine_store.order)",
             nativeQuery = true)
-    Optional<Basket> getCurrentBasketByCustomer(@Param("customer_id") long customer_id);
+    Optional<Basket> getCurrentBasketByCustomer(@Param("customer_id") long customerId);
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    List<Product> getProductByManufacturer (String manufacturer);
+    List<Product> getProductByManufacturer(String manufacturer);
 
     @Query(value = "select * from wine_store.product where quantity > 0", nativeQuery = true)
     List<Product> getAvailableProduct();

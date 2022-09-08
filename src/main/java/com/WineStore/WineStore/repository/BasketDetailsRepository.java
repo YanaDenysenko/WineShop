@@ -10,4 +10,6 @@ import java.util.List;
 public interface BasketDetailsRepository extends JpaRepository<BasketDetails, Long> {
 
     List<BasketDetails> getAllByProduct(Product product);
+
+    void deleteById(long id);
 }
