@@ -101,13 +101,17 @@ public class WineServiceTest {
         wineService.getById(1);
     }
 
-    //TODO when thenReturn
     @Test
     public void getAllWines() {
+        long id = 1;
+        Wine mockWine = new Wine();
+        WineUIDto mockWineUIDto = fillWineUIDto(id);
         List<WineUIDto> mockWineUIDtoList = fillWineUIDtoList();
         List<Wine> mockWines = new ArrayList<>();
 
         when(wineRepository.findAll()).thenReturn(mockWines);
+        when(wineUIMapper.mapToDto(mockWine)).thenReturn(mockWineUIDto);
+
         // ????
 
         List<WineUIDto> wineUIDtoList = wineService.getAll();

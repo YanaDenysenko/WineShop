@@ -87,12 +87,10 @@ public class OrderServiceTest {
         orderService.getById(1);
     }
 
-    //TODO
     @Test
     public void getAllOrders() {
     }
 
-    //TODO
     @Test
     public void getOrdersByCustomerId() {
     }

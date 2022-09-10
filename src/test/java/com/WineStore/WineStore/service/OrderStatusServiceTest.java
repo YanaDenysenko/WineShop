@@ -93,7 +93,6 @@ public class OrderStatusServiceTest {
         orderStatusService.getById(1);
     }
 
-    //TODO
     @Test
     public void getAllOrderStatuses() {
     }

@@ -96,10 +96,8 @@ public class BasketServiceTest {
         Assert.assertEquals(mockBasketUIDto, basketService.getCurrentBasketByCustomer(1));
     }
 
-    //TODO
     @Test
     public void getAllBaskets() {
-
     }
 
     @Test(expected = BasketNotFoundException.class)

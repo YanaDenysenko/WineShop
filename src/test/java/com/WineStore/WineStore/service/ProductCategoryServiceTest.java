@@ -101,7 +101,6 @@ public class ProductCategoryServiceTest {
         productCategoryService.getById(1);
     }
 
-    //TODO
     @Test
     public void getAllProductCategories() {
     }

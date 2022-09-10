@@ -93,7 +93,6 @@ public class CustomerServiceTest {
         customerService.getById(1);
     }
 
-    //TODO
     @Test
     public void getAllCustomers() {
     }

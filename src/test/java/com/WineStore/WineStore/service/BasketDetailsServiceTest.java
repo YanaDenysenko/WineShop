@@ -87,7 +87,6 @@ public class BasketDetailsServiceTest {
         BasketDetails mockBasketDetails = new BasketDetails();
         BasketDetailsUIDto mockBasketDetailsUIDto = fillBasketDetailsUIDto(id);
 
-
         when(basketDetailsUIMapper.mapToDto(mockBasketDetails)).thenReturn(mockBasketDetailsUIDto);
         when(basketDetailsRepository.findById(id)).thenReturn(Optional.of(mockBasketDetails));
 
@@ -99,16 +98,12 @@ public class BasketDetailsServiceTest {
         basketDetailsService.getById(1);
     }
 
-    //TODO
     @Test
     public void getAllBasketDetails() {
-
     }
 
-    //TODO
     @Test
     public void getAllByCorrectProduct() {
-
     }
 
     private List<BasketDetailsUIDto> fillBasketDetailsUIDtoList() {
@@ -133,8 +128,8 @@ public class BasketDetailsServiceTest {
         long productId = 1;
         long basketId = 1;
         return BasketDetailsRequestDto.builder()
-                .productId(1)
-                .basketId(1)
+                .productId(productId)
+                .basketId(basketId)
                 .quantity(quantity)
                 .build();
     }

@@ -100,27 +100,22 @@ public class ProductServiceTest {
         productService.getById(1);
     }
 
-    //TODO
     @Test
     public void getAllProducts() {
     }
 
-    //TODO
     @Test
     public void getProductsByManufacturer() {
     }
 
-    //TODO
     @Test
     public void getAvailableProducts() {
     }
 
-    //TODO
     @Test
     public void getProductsByOrderId() {
     }
 
-    //TODO
     @Test
     public void getProductsByCategoryId() {
     }
