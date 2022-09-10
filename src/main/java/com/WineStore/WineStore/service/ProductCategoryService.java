@@ -1,16 +1,20 @@
 package com.WineStore.WineStore.service;
 
-import com.WineStore.WineStore.dto.ProductCategoryDto;
-import com.WineStore.WineStore.model.ProductCategory;
+import com.WineStore.WineStore.dto.requestDto.ProductCategoryRequestDto;
+import com.WineStore.WineStore.dto.uiDto.ProductCategoryUIDto;
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductCategoryService {
-    ProductCategory save(ProductCategoryDto productCategoryDto);
 
-    Optional<ProductCategory> findById(long id);
+    ProductCategoryUIDto create(ProductCategoryRequestDto productCategoryRequestDto);
 
-    void delete(ProductCategoryDto productCategoryDto);
+    ProductCategoryUIDto updateById(ProductCategoryRequestDto productCategoryRequestDto, long id);
 
-    List<ProductCategory> findAll();
+    ProductCategoryUIDto deleteById(long id);
+
+    ProductCategoryUIDto getById(long id);
+
+    List<ProductCategoryUIDto> getAll();
+
+    ProductCategoryUIDto getByName(String name);
 }
